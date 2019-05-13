@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.ui-paginator {
+        font-family: "Montserrat" !important;
+        margin: 0 !important;
+        text-align: center !important;
+        padding: .125em !important;
+        background: transparent !important;
+        border: none !important;
+        font-family: "Montserrat-regular", sans-serif !important;
+    }
+    .ui-paginator-first
+    {
+    display: none !important;
+    font-family: "Montserrat-regular", sans-serif !important;
+    }
+    .ui-paginator-last
+    {
+        font-family: "Montserrat-regular", sans-serif !important;
+        display: none !important;
+    }
+    
+ 
+    .ui-paginator a:not(.ui-state-disabled):not(.ui-state-active):hover {
+        font-family: "Montserrat-regular", sans-serif !important;
+        border-color: #c0c0c0 !important;
+        background-color: #2368a0 !important;
+        color: #ffffff !important;
+    }
+    .ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-next, .ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first, .ui-paginator .ui-paginator-prev {
+        cursor: pointer;
+        font-family: "Montserrat-regular", sans-serif !important;
+        }
+        .ui-paginator .ui-paginator-page{
+            font-family: "Montserrat-regular", sans-serif !important;
+        width: 2.3em !important;
+        height: 2.3em !important;
+        line-height: 2.3em !important;
+        
+        border-radius: 50px;
+        }
+        
+        .ui-paginator .ui-paginator-page.ui-state-active .paginator .ui-paginator-next .paginator .ui-paginator-prev {
+            font-family: "Montserrat-regular", sans-serif !important;
+        background: #0D416B !important;
+        color: #FFFFFF;
+        border-color: #0D416B !important;
+        
+        }
+        
+        
+        .ui-paginator .ui-paginator-page {
+            font-family: "Montserrat-regular", sans-serif !important;
+        width: 2.3em !important;
+        height: 2.3em !important;
+        line-height: 2.3em !important;
+        border-radius: 50px;
+        
+        }
+        .ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-next, .ui-paginator .ui-paginator-prev {
+            font-family: "Montserrat-regular", sans-serif !important;
+            cursor: pointer;
+            width: 2.0em !important;
+            height: 2.0em !important;
+            line-height: 2.0em !important;
+            border-radius: 50px;
+            margin-top: -7px !important;
+        
+        }
+
+        // .star-icon:before {
+        //     margin-top: 6px !important;
+        //     padding-left:0% !important;
+        //     color: #fdca29 !important;
+        //     }
+        //     .star-icon.half100:before {
+
+        //         top:-5 !important;
+        //     }
+            .mydrp .selectiongroup
+{
+  width: 246px !important;
+ 
+}
+.mat-autocomplete-panel {
+    width:200px;
+    max-width: 280px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    visibility: hidden;
+    
+    max-height: 140px !important;
+    position: absolute !important;
+}
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown .dropdown-item .ellipsis
+{
+    width:260px !important;
+  
+}
+.row-helight:hover{
+    background-color:#eeeeee
+}
+.noti-text{word-break:break-word;
+    max-width:280px;
+    white-space:normal;
+    line-height:1.1rem
+}
+
+.mat-form-field-underline:focus{
+        color:#b7b2b3 !important;       
+}
+.mat-form-field-infix {
+    width: 140px !important;
+}
+.mat-form-field-ripple{background-color:#2368a0;}

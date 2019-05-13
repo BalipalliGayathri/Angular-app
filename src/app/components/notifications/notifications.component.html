@@ -1,0 +1,71 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="card grid-margin stretch-card" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-8">
+            <h4 class="card-title" style="margin-top:-4px;text-transform:none;color:#ffffff">Notifications</h4>
+          </div>
+          <div class="col-sm-4">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/dashboard']" style="color:#00aae7;">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+              </ol>
+            </nav>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- <div *ngIf="badgeCount > 0" class="row" style="margin-left: 0%;">
+      <button (click)="selectAll()" class="btn btn-group btn-primary mr-2">{{buttonInfo}}</button>
+      <button *ngIf="selected" (click)="readAll()" class="btn btn-group btn-primary mr-2">Mark as Read</button>
+      <button *ngIf="singleSelected" (click)="readSelNotifications()" class="btn btn-group btn-primary ">{{notificaText}}</button>
+    </div> -->
+
+
+    <div class="row" style="margin-top:2%;">
+      <!-- <div class="col-sm-1"></div> -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="preview-list" style="cursor: pointer; ">
+              <!-- data-target="#exampleModal-5" -->
+
+              <div *ngFor="let notification of allNotifications" [ngClass]="notification.isRead === 0 ? 'preview-item border-bottom1 px-0 unread row-helight' : 'preview-item border-bottom1 px-0 read row-helight'"
+                data-toggle="modal">
+                <div class="preview-thumbnail ml-3">
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{notification.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="image" class="rounded-circle" data-toggle="tooltip" data-placement="bottom" title="{{notification.createdBy}}"/>
+                </div>
+                <div class="preview-item-content d-flex flex-grow">
+                  <div (click)="showEditnotfPanel(notification)" class="flex-grow mt-2">
+
+
+                    <div style="max-width: 600px;word-break: break-word; line-height: 1.2rem;" [innerHTML]="notification.notificationDescription"></div>
+
+                    <span class="float-right small" style="margin-top: -2.5%;">
+                      <span class="text-muted pr-3"> {{ convertToLocalDate(notification.createdDate) | amTimeAgo}}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <br>
+      </div>
+      <!-- <div class="col-sm-1"></div> -->
+    </div>
+
+  </div>
+</div>

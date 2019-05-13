@@ -1,0 +1,329 @@
+<div *ngIf="mainLoader" class="main-panel" style="height:fit-content;">          
+    <div class="content-wrapper">
+      <div class="card mb-4" style="background-color: #232527;display: block;">
+            <div class="card-body" id="header">
+              <div class="row">
+                  <div class="col-sm-9">
+                <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff;">User Management</h4>
+                </div>
+              <div class="col-sm-3">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb  pull-right">
+                  <li class="breadcrumb-item"><a [routerLink]="['/']" style="color: #00aae7;">Home</a></li>                  
+                  <li class="breadcrumb-item active" aria-current="page">User Management</li>
+                  </ol>
+                </nav>
+                </div>									
+                </div>
+            </div>
+          </div>
+<!-- opening of super admin panle -->
+         <div *ngIf="!showAdminPanel" class="card">
+            <div class="card-body">
+            <div class="row">
+            <div class="col-sm-4">                
+             <div class="h-100">
+                  <div class="p-4" style="background-color:#e1e1e1;">
+             <div class="card-box-header-red" style="text-align:center"><strong>Super Admin</strong></div>
+                    <div id="profile-list-left" class="py-2 cards-box-super">
+                      <div id="superAdmin" [dragula]="Admin_Users" [(dragulaModel)]='super_admin' >
+                      <div *ngFor='let text of super_admin' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle"  id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+             <div class="row">
+               <div class="col-sm-8">
+                  <ul class="nav nav-tabs tab-solid  tab-solid-primary" role="tablist">
+                <li class="nav-item">
+                  <a (click) ="hrListLoading()" class="nav-link active" id="tab-6-1" data-toggle="tab" href="#home-6-1" role="tab" aria-controls="home-6-1" aria-selected="true"><i class="fa fa-user"></i>HR</a>
+                </li>
+                <li class="nav-item">
+                  <a (click) ="itListLoading()" class="nav-link" id="tab-6-2" data-toggle="tab" href="#profile-6-2" role="tab" aria-controls="profile-6-2" aria-selected="false"><i class="fa fa-laptop"></i>IT</a>
+                </li>
+                <li class="nav-item">
+                  <a (click) ="mAppsListLoading()" class="nav-link" id="tab-6-3" data-toggle="tab" href="#contact-6-3" role="tab" aria-controls="contact-6-3" aria-selected="false"><i class="fa fa-android"></i>Apps</a>
+                </li>
+              </ul>
+               </div>
+                <div class="col-sm-4">
+                <!-- <span style="display:inline-flex;margin-left: 25%;float: right;"><input name="tags" id="tags3" placeholder="Add here" value="" style="border-bottom:1px solid #232527;border-top:none;border-left:none;" />&nbsp;&nbsp;&nbsp;
+                  <button type="button" class="btn btn-primary">Add</button></span> -->
+                 <!-- <div *ngIf="positionAlert">
+                  <p class="text-primary mt-3"><strong>You have changed the position for <span class="text-danger">@{{positionAlertName}}</span></strong></p>
+                 </div> -->
+                </div>
+             </div>
+
+            <div class="tab-content tab-content-solid">
+              <!-- HR contact info -->
+            <div class="tab-pane fade show active" id="home-6-1" role="tabpanel" aria-labelledby="tab-6-1">                                                                                   
+              <div class="row">
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4 ">
+                    <div class="card-box-header-blue" style="text-align:center"><strong>Admin</strong></div>
+                    <div  class="py-2 cards-box">
+                      <div id="Admin" [dragula]="Admin_Users"  [(dragulaModel)]='hrAdmin'>
+                      <div  *ngFor='let text of hrAdmin' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle" id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>                               
+                            </div>                                                       
+                          </div>
+                        </div>                       
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4">
+                    <div class="card-box-header-black" style="text-align:center"><strong>Agent</strong></div>
+                    <div id="profile-list-right-one" class="py-2 cards-box">
+                      <div id="Agent" [dragula]="Admin_Users" [(dragulaModel)]='hrAgents' data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                      <div *ngFor='let text of hrAgents' class="card rounded mb-2">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle"  id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+               <!-- IT contact info -->
+            <div class="tab-pane fade" id="profile-6-2" role="tabpanel" aria-labelledby="tab-6-2">
+              <div class="row">
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4">
+                      <div class="card-box-header-blue" style="text-align:center"><strong>Admin</strong></div>
+                    <div id="profile-list-left-one-2" class="py-2 cards-box">
+                      <div id="Admin" [dragula]="Admin_Users" [(dragulaModel)]='itAdmin' data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                      <div *ngFor='let text of itAdmin' class="card rounded mb-2">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle" id="image-cards">
+                            <div class="media-body" style="display:inline-flex;">
+                              <h6 class="mt-2">{{text}}</h6>             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div> 
+
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4">
+                   <div class="card-box-header-black" style="text-align:center"><strong>Agent</strong></div>
+                    <div id="profile-list-right-one-2" class="py-2 cards-box">
+                      <div id="Agent" [dragula]="Admin_Users" [(dragulaModel)]='itAgents'>
+                      <div *ngFor='let text of itAgents' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle"  id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+             <!-- Apps contact info -->
+            <div class="tab-pane fade" id="contact-6-3" role="tabpanel" aria-labelledby="tab-6-3">
+                <div class="row">
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4">
+                     <div class="card-box-header-blue" style="text-align:center"><strong>Admin</strong></div>
+                    <div id="profile-list-left-one-2" class="py-2 cards-box">
+                      <div id="Admin" [dragula]="Admin_Users" [(dragulaModel)]='appsAdmin'>
+                      <div *ngFor='let text of appsAdmin' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                        <div  class="card-body p-3">
+                          <div class="media">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle" id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>  
+
+                <div class="col-md-6 h-100">
+                  <div class="bg-secondary p-4">
+                  <div class="card-box-header-black" style="text-align:center"><strong>Agent</strong></div>
+                    <div id="profile-list-right-one-2"  class="py-2 cards-box">
+                      <div id="Agent" [dragula]="Admin_Users" [(dragulaModel)]='appsAgents' >
+                      <div *ngFor='let text of appsAgents' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                        <div  class="card-body p-3">
+                          <div class="media mb-2">
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle"  id="image-cards">
+                            <div class="media-body">
+                              <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              </div>
+            </div>
+          </div>  
+          </div>
+          </div>
+        </div>
+<!-- Closing of super admin panle -->
+
+<!-- opening of admin panel -->
+<div *ngIf="showAdminPanel" class="card">
+  <div class="card-body">
+      
+      <div class="row">
+          <div class="col-md-8"></div>
+       <div class="col-md-4" style="height:20px;">
+        <!-- <div *ngIf="positionAlert">
+          <p class="text-primary "><strong>You have changed the position for <span class="text-danger">@{{positionAlertName}}</span></strong></p>
+         </div> -->
+       </div>
+      </div>
+      
+      
+
+    
+
+        <div class="row">
+        <!-- <div class="col-sm-2"></div> -->
+          <div class="col-md-6 h-100">
+            <div class="bg-secondary p-4 text-center">
+      
+                <div class="card-box-header-blue">
+                  <strong>Admin</strong>
+                </div>
+
+              <div id="profile-list-left-one" class="py-2 cards-box">
+                <div id="Admin" [dragula]="Admin_Users" [(dragulaModel)]='normalAdmin'>
+                <div *ngFor='let text of normalAdmin' class="card rounded mb-2" data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                  <div  class="card-body p-3">
+                    <div class="media">
+                      <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle" id="image-cards">
+                      <div class="media-body">
+                        <h6 class="mt-2">{{text}}</h6>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 h-100">
+            <div class="bg-secondary p-4 text-center">
+         
+                <div class="card-box-header-black">
+                  <strong>Agent</strong>
+                </div>
+
+              <div id="profile-list-right-one" class="py-2 cards-box">
+               <div id="Agent" [dragula]="Admin_Users" [(dragulaModel)]='normalAgent'>   
+                <div class="card rounded mb-2" *ngFor='let text of normalAgent' data-toggle="tooltip" data-placement="bottom" title="Drag and drop to change user access">
+                  <div class="card-body p-3"  >
+                    <div class="media">
+                      <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{text}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" alt="image" class="img-sm mr-3 rounded-circle" id="image-cards">
+                      <div class="media-body">
+                        <h6 class="mt-2">{{text}}</h6>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-2"></div> -->
+                </div>
+              
+           
+          </div>
+        </div>
+   <!-- closing of admin panel -->
+
+    </div>
+  </div> 
+  <!-- <div class="modal fade" id="exampleModal-99" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document" style="margin-top:15%;">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div style="text-align:center">
+              <i class="fa fa-check-circle text-success" style="font-size:4rem"></i>
+            </div>
+            <h5 class="text-center text-success mt-3">
+            <strong>  You have changed the position for <span class="text-danger">@{{positionAlertName}}</span>
+              </strong>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="modal fade" id="exampleModal-99" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document" style="margin-top:15%;">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div style="text-align:center">
+                <i [ngClass]="ngClassForIcons(successPoup)" class="fa fa-check-circle text-success" style="font-size:4rem"></i>
+              </div>
+              <h5  [ngClass]="ngClassForIcons1(successPoup)" class="text-center text-success mt-3">
+                  <strong>  {{insideText}} <span class="text-danger">{{positionAlertName}}</span> {{nextText}}
+                  </strong>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- loader -->
+<div *ngIf="!mainLoader"  class="main-panel">
+    <div class="content-wrapper">
+        <div  style="margin-top: 15%">
+            <div class="row">
+              <div class="col-sm-12" style="text-align:center;">
+                <img src="assets/images/Loader.gif" class="text-center">
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>

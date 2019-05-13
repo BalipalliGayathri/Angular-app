@@ -1,0 +1,41 @@
+[debug] [2018-09-12T20:22:11.846Z] ----------------------------------------------------------------------
+[debug] [2018-09-12T20:22:11.848Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rkanumetta\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-09-12T20:22:11.848Z] CLI Version:   3.19.3
+[debug] [2018-09-12T20:22:11.848Z] Platform:      win32
+[debug] [2018-09-12T20:22:11.848Z] Node Version:  v8.9.0
+[debug] [2018-09-12T20:22:11.849Z] Time:          Wed Sep 12 2018 16:22:11 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:11.849Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-12T20:22:11.871Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-09-12T20:22:11.872Z] > authorizing via signed-in user
+[debug] [2018-09-12T20:22:11.874Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-09-12T20:22:11.874Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/H6a1la5-HyHpHj7DVn48NmNHtlwh2qKD7Eq4rK_x_A4',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Sep 12 2018 16:22:11 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:12.121Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-12T20:22:12.138Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/help-miraclesoft-com  
+  
+ Wed Sep 12 2018 16:22:12 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:13.383Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-12T20:22:13.384Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/help-miraclesoft-com/tokens  
+  
+ Wed Sep 12 2018 16:22:13 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:14.333Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-12T20:22:14.334Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/help-miraclesoft-com  
+  
+ Wed Sep 12 2018 16:22:14 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:15.876Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\rkanumetta\Desktop\helpdesk.com\helpdeskUpdated2\helpdesk'...
+[info] 
+[debug] [2018-09-12T20:22:15.878Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/955762766665/clients/_:getWebAppConfig  
+  
+ Wed Sep 12 2018 16:22:15 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-09-12T20:22:16.343Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist
+[info] +  hosting: Local server: http://localhost:5000
+

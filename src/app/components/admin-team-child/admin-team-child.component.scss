@@ -1,0 +1,170 @@
+// .star-icon[_ngcontent-c3]:before {
+//   margin-top: -8px !important;
+//   padding-left:0% !important;
+//   color: #ff9800 !important;
+//   }
+  
+.breadcrumb {
+  border: none !important;
+     padding: 0rem;
+  margin-top: -7px !important;  
+}
+#header
+{
+padding: 0rem 1.81rem; 
+padding-top: 2%;
+}
+  
+  
+.bg-blue
+{
+background-color: #2368A0;
+height:33px;
+}
+.bg-black
+{
+background-color: #232527;
+height:33px;
+}
+.bg-red
+{
+background-color: #ef4048;
+height:33px;
+}
+.bg-grey
+{
+background-color: #8c8c8c;
+height:33px;
+}
+.star-icon:before {
+  margin-top: 4px !important;
+  padding-left:0% !important;
+  color: #fdca29 !important;
+ 
+  }
+  
+.star-icon.half100:before {
+    width: 100% !important;
+    top: -5 !important;
+}
+
+.bdge-txt{
+  width: 109px !important;
+}
+
+.box-borders1
+    {
+    text-align:center;
+    background-color:#2368a0;
+    padding-top:4px;
+    margin-left:1%;
+    border-radius:5%;
+    color:#ffffff;
+    }
+    .box-borders2
+    {
+    text-align:center;
+    background-color:#232527;
+    padding-top:4px;
+    border-radius:5%;
+    color:#ffffff;
+    }
+    .box-borders3
+    {
+    text-align:center;
+    background-color:#0d416b;
+    padding-top:4px;
+    border-radius:5%;
+    color:#ffffff;
+    }
+    /* Borders */
+.bgfbox .flex-row {
+	border: 1px solid #eee;
+	border-width: 1px 0 0 1px;
+}
+.bgfbox .flex-row .col-md-4 .bgfbox-content {
+	border: 1px solid #eee;
+	border-width: 0 1px 1px 0;
+}
+
+
+
+
+/* No row margins */
+.bgfbox .flex-row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+/* No column padding */
+.bgfbox .col-md-4 {
+	padding: 0;
+}
+/* Add padding to content */
+.bgfbox .bgfbox-content {
+	padding: 50px;
+}
+
+
+/* Colors */
+.bgfbox .bgfbox-first a {
+    color: #fff;
+}
+.bgfbox .bgfbox-first h2 {
+	margin-bottom: 50px;
+}
+.bg-white {
+	background-color: #fff;
+}
+.bg-white.bg-hover-inverse:hover {
+	background-color: #000;
+}
+.bg-white.bg-hover-inverse:hover * {
+	color: #fff;
+}
+
+/* Icons */
+.bgfbox-icon-wrap {
+	margin-bottom: 10px;
+	font-size: 32px;
+}
+
+/* Hover Animation */
+.bg-hover-fade {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.bg-hover-fade:hover, 
+.bg-hover-fade:focus, 
+.bg-hover-fade:active {
+  background-color: #2098d1;
+  color: white;
+}
+
+/* DEMO STYLES  */
+.bgfbox {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.bgfbox h4 {
+	margin-bottom: 15px;
+}
+.copyy:hover{
+  color:#00aae7 !important;
+  font-size: 13px;
+  font-weight:bold;
+  cursor: pointer;
+}
+@media screen and (max-width: 800px) and (min-width: 600px) {
+.ticket-view-card{margin-top:8%;}
+.blue-cards{padding-top:2%;padding-bottom:3%}
+}

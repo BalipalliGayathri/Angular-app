@@ -1,0 +1,38 @@
+<!--The content below is only a placeholder and can be replaced-->
+
+<!-- <div>
+   <router-outlet></router-outlet> 
+</div> -->
+
+
+<div *ngIf="(isConnected | async)">
+<router-outlet></router-outlet> 
+</div>
+<div class="connected" *ngIf="!(isConnected | async)">
+<div class="container-scroller">
+<div class="container-fluid page-body-wrapper full-page-wrapper">
+<div class="content-wrapper d-flex align-items-center text-center error-page" style="background-color:#0d416b;">
+<div class="row flex-grow">
+<div class="mx-auto text-white">
+<div class="row align-items-center d-flex flex-row">
+
+<div class="text-lg-left pl-lg-4 text-center">
+<h2 class="text-center"><span style="display:inline-flex;"><i class="fa fa-warning mr-1  mb-1"></i></span>Ouch ...!</h2>
+
+<h3 class="font-weight-light">Make sure you are connected to internet</h3>
+</div>
+</div>
+
+<div class="row mt-5">
+<div class="col-12 mt-xl-2">
+<span class="text-muted d-block text-center text-sm-left d-sm-inline-block text-white" style="text-decoration:none;"><font color="#ffffff">© 2018&nbsp;</font><a href="http://www.miraclesoft.com/" target="_blank" style="color:#ffffff">Miracle Software Systems, Inc. </a></span> 
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- content-wrapper ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+</div>

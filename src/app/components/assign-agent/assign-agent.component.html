@@ -1,0 +1,940 @@
+<!--Main panel-->
+
+<!-- without loader for assign panel -->
+<style>
+
+</style>
+<div *ngIf="showLoader" class="main-panel">
+  <div class="content-wrapper">
+
+    <div class="card grid-margin stretch-card" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-8">
+            <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff">Ticket Status</h4>
+          </div>
+          <div class="col-sm-4">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/']" style="color:#00aae7;">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/assign']" style="color:#00aae7;">{{this.ticketsAssignServ.tabName}}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Ticket Status</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row user-profile">
+      <div class="col-lg-4 side-left d-flex align-items-stretch">
+        <div class="row">
+          <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body avatar">
+                <h4 class="card-title">Raised by</h4>
+                <div style="display: flex;flex-direction: column;justify-content: center;">
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{docFulldetails.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="" data-toggle="tooltip" data-placement="bottom" title="{{docFulldetails.createdByName}}">
+                  <!-- <p class="name">{{docFulldetails.createdByName}}</p> -->
+                  <hr>
+                  <p class="name">{{docFulldetails.createdByName}} </p>
+                  <p class="designation">{{valueNullChecking(docFulldetails.department)}} | {{valueNullChecking(docFulldetails.titleType)}}</p>
+                  <div class="row text-center">
+                    <div class="col-sm-6">
+                      <p style="font-size: 11px;">
+                        <i class="mdi mdi-map-marker-outline"></i>{{valueNullChecking(docFulldetails.location)}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                      <p style="font-size: 11px;">
+                        <i class="fa fa-phone"></i> {{valueNullChecking(docFulldetails.phonenumber)}}</p>
+                    </div>
+                    <!-- <div class="col-sm-4"><p style="font-size: 11px;"><i class="fa fa-clock-o"></i>&nbsp;{{docFulldetails.createdDate | date}}</p></div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 stretch-card">
+            <div class="card">
+              <div class="card-body overview">
+                <h4 class="card-title">Ticket history</h4>
+                <hr>
+                <table>
+                  <thead>
+                  </thead>
+                  <tbody style="line-height:1.65em">
+                    <tr>
+                      <td class="td-title">
+                        <p>
+                          <strong>Raised on </strong>
+                        </p>
+                      </td>
+                      <td class="td-coln">
+                        <p>
+                          <strong>:</strong>
+                        </p>
+                      </td>
+                      <td>
+                        <p>{{docFulldetails.createdDate | date}}</p>
+                      </td>
+                    </tr>
+
+                    <tr>
+
+                      <td class="td-title">
+                        <p>
+                          <strong>Escalated on</strong>
+                        </p>
+                      </td>
+                      <td class="td-coln">
+                        <p>
+                          <strong>:</strong>
+                        </p>
+                      </td>
+
+                      <td>
+                        <p *ngIf="docFulldetails.escalatedDate === null">N/A</p>
+                        <p *ngIf="docFulldetails.escalatedDate != ''">{{docFulldetails.escalatedDate | date}}
+                          <i *ngIf="escalatedObject.length > 0 " class="fa fa-question-circle text-danger" (click)="showAlertData(docFulldetails)"
+                            data-toggle="modal" data-target="#exampleModal-16"></i>
+
+                        </p>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="td-title">
+                        <p>
+                          <strong>Closed on</strong>
+                        </p>
+                      </td>
+                      <td class="td-coln">
+                        <p>
+                          <strong>:</strong>
+                        </p>
+                      </td>
+                      <td>
+                        <p *ngIf="docFulldetails.closedDate === null">N/A</p>
+                        <p *ngIf="docFulldetails.closedDate != ''">{{docFulldetails.closedDate | date}}
+                          <!-- <i *ngIf="docFulldetails.closedDate != '' && docFulldetails.closedDate != null " class="fa fa-check-circle text-success"
+                                          data-toggle="modal" data-target="#exampleModal-17"></i> -->
+                        </p>
+                      </td>
+
+
+                      <!-- <td>
+                       
+                      </td> -->
+                    </tr>
+
+
+                    <tr>
+                      <td class="td-title">
+                        <p>
+                          <strong>Re-opened on</strong>
+                        </p>
+                      </td>
+                      <td class="td-coln">
+                        <p>
+                          <strong>:</strong>
+                        </p>
+                      </td>
+                      <td>
+                        <p *ngIf="docFulldetails.reOpenedDate === null">N/A</p>
+                        <p *ngIf="docFulldetails.closedDate != ''">{{docFulldetails.reOpenedDate | date}}
+                          <i *ngIf="reOpenObject.length > 0" class="fa fa-question-circle text-danger" (click)="showReopendData(docFulldetails)" data-toggle="modal"
+                            data-target="#exampleModal-56"></i>
+                        </p>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 side-right stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+              <h4 class="card-title mb-0">Ticket Details</h4>
+              
+
+              <span style="right: 7%;position: absolute;display: inline-flex;" *ngIf="!text  && ticketStatus != 'Opened'" >
+                <strong>Assigned to :&nbsp;&nbsp; </strong>
+                <span class="chip" style="margin-top:-7px;"><img src="https://www.miraclesoft.com/images/employee-profile-pics/{{docFulldetails.assignedTo}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                  style="border-radius:50%; height:30px;width:30px;" data-toggle="tooltip" data-placement="bottom" title="{{docFulldetails.assignedToName}}">
+                {{valueNullChecking1(docFulldetails.assignedTo)}} &nbsp;
+              <span *ngIf="(UserObject.RoleName != 'Agent'  ) || ticketStatus === 'Escalated' ">
+                <button type="button" *ngIf="ticketStatus != 'Completed' && ticketStatus !=  'In progress' && ticketStatus !=  'Solved' && UserObject.RoleName != 'Agent' "  class="pull-right" (click)="updateTicket()" style="font-size: 18px;background:none;border:none;">
+                  <i  class="fa fa-times-circle mt-2" style="color:#ef4048;"></i>
+                </button>
+                
+              </span>
+                
+              </span>
+                
+                <!-- <i class="fa fa-retweet" style="font-size: 18px;" data-toggle="tooltip" data-placement="bottom" title="Re-Assigne a Ticket"></i> -->
+                
+
+              </span>
+
+              <span style="right: 7%;position: absolute;display: inline-flex;margin-top:1%;" *ngIf="text || ticketStatus === 'Opened'">
+                <form class="example-form mr-21" >
+                  <mat-form-field class="example-full-width">                    
+                      <span style="display:inline-flex"><img *ngIf="assignedToName1 != ''"  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName1}}.png"
+                      style="height: 35px; width: 35px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName1}}"> &nbsp;&nbsp;
+                    <input matInput placeholder="Assign to"  aria-label="Assign to" [matAutocomplete]="auto" [formControl]="stateCtrl" (focusin)="spinner1()" (focusout)="spinner11()">
+                    <i *ngIf="enableTick" (click)="cancle1()" class="fa fa-times-circle mt-2 text-danger" data-placement="bottom" data-toggle="tooltip" title="Cancel"></i>
+                    <i *ngIf="spinenable1" class="spinner"  style="position:relative;font-size:20px;top: -7px;right: 14%;"></i>
+                  </span>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event,i)">
+                      <mat-option *ngFor="let state of filteredStates | async" [value]="state.LoginId">
+                        <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                          onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                          height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.LoginId}}" style="border-radius:50%">
+                        <span >{{idStringSubstring(state.LoginId)}}</span>
+                        <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                      </mat-option>
+                    </mat-autocomplete>
+                    
+                  </mat-form-field>
+                  <i class="fa fa-times mt-3 text-danger" *ngIf="!show && ticketStatus != 'Opened'" data-placement="bottom" data-toggle="tooltip" title="Cancel" style="font-size:20px" (click)="assto()"></i>
+                </form>
+                
+                <!-- <i class="fa fa-times-circle cross ng-star-inserted" data-placement="bottom" data-toggle="tooltip" style="margin-top:9%" title="Cancel"></i>&nbsp;&nbsp; -->
+                
+              </span>
+              <i *ngIf="enableTick && this.docFulldetails.adminSeverity === ''" class="fa fa-chevron-circle-right cross1 ng-star-inserted mt-1"  data-placement="bottom" data-toggle="tooltip" style="font-size:25px !important;" title="Assign" data-toggle="modal" data-target="#exampleModal-28" ></i>
+
+              <i *ngIf="enableTick && this.docFulldetails.adminSeverity != ''" class="fa fa-chevron-circle-right cross1 ng-star-inserted mt-1" (click)="assign()"  data-placement="bottom" data-toggle="tooltip" style="font-size:25px !important;" title="Assign"></i>
+           
+            </div>
+            <div class="wrapper">
+              <hr>
+              <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"></div>
+
+              </div>
+              <div class="accordion" id="accordion" role="tablist">
+                <div class="card">
+                  <div class="card-header" role="tab" id="headingOne" style="background-color:#0d416b;display: inline-flex">
+                    <h6 class="mb-0">
+                      <a data-toggle="collapse" style="color:#ffffff;line-height:1.5rem;">
+                        <strong>Ticket Information</strong>
+                      </a>
+                    </h6>
+                    <!-- <button class="btn btn-success" *ngIf="ticketStatus === 'Assigned'" data-toggle="modal" data-target="#exampleModal-15" style="right: 2%;position: absolute;margin-top: 0.8%;" >Start</button> -->
+                  </div>
+                  <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <h6 style="line-height:1.5rem">
+                        <strong>ID : </strong> {{docFulldetails.trackingId}}
+                      </h6>
+                      <h6 style="line-height:1.5rem">
+                        <strong>Title : </strong> {{docFulldetails.ticketTitle}}
+                      </h6>
+                      <h6 style="line-height:1.5rem" *ngIf="showDesc || (ticketStatus != 'Assigned'  || UserObject.LoginId != docFulldetails.assignedTo)">
+                        <strong>Description : </strong> {{docFulldetails.description}}
+                      </h6>
+
+                     
+
+                    
+                      <h6 *ngIf="docFulldetails.attachmentName !== ''" style="line-height:1.5rem">
+
+                        <strong>Attachment : </strong> {{docFulldetails.attachmentName}}
+                        <a (click)="openmodal(docFulldetails.attachmentLocation, docFulldetails.attachmentName)">
+                          <i class="fa fa-eye" style="cursor: pointer; color:#00aae7"></i>
+                        </a>
+                      </h6>
+                      <!-- <h6 *ngIf="docFulldetails.resolved " style="line-height:1.5rem">
+                        <strong>
+                          Resolution :
+                        </strong>
+                        {{docFulldetails.resolved[0].statusComments}}
+                      </h6> -->
+                      <div class="card-header mt-4" style="background-color: #00aae7;padding: 2.5%;" *ngIf="ticketStatus === 'Assigned' && UserObject.LoginId === docFulldetails.assignedTo">
+                        <h6 style="text-align:center;color: #ffffff;" *ngIf="!showDesc" >
+                            <strong style="margin-top: -5px;" class="pull-left"> Click <strong>"Start"</strong> to view ticket description</strong>
+                            <button class="btn btn-success pull-right" *ngIf="ticketStatus === 'Assigned' && UserObject.LoginId === docFulldetails.assignedTo && !start" data-toggle="modal" data-target="#exampleModal-15" style="right: 2%;background-color:#ffffff;border-color:#ffffff;margin-top: -1.6%;color:#00aae7;font-weight:900;padding: 1% 5%;" >Start</button>
+                        </h6>   
+                       
+                    
+                    </div>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+
+              <div class="accordion" *ngIf="resolution.length > 0 && (ticketStatus ==='Solved' || ticketStatus === 'Completed')" id="accordion"
+                role="tablist">
+
+                <div class="card">
+                  <div class="card-header" role="tab" id="headingOne" style="background-color: #51aa81;display:inline-flex">
+                    <h6 class="mb-0" style="color:#ffffff">
+                      <a style="color:#ffffff;line-height:1.5rem;word-break: break-word;">
+                        <strong>Resolution :</strong>
+                        {{docFulldetails.resolved[0].statusComments}}
+                      </a>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <!-- cancel resolution description -->
+              <div class="accordion" *ngIf="cancelResolu != [] && ticketStatus === 'Cancelled' && docFulldetails.cancelled.length>0" id="accordion" role="tablist">
+                <div class="card">
+                  <div class="card-header" role="tab" id="headingOne" style="background-color: #ef4048 ;display:inline-flex">
+                    <h6 class="mb-0" style="color:#ffffff">
+                      <a *ngIf="cancelResolu != [] && ticketStatus ==='Cancelled'" style="color:#ffffff;line-height:1.5rem;word-break: break-word;">
+                        <strong>Cancelled :</strong>
+                        {{docFulldetails.cancelled[0].statusComments}}
+                      </a>
+                    </h6>
+
+                  </div>
+                </div>
+              </div>
+              <!-- Completed user resolution -->
+              <div class="accordion" *ngIf="userFeedObje.length > 0 && ticketStatus === 'Completed' && userFeedObje[0].statusComments != null" id="accordion" role="tablist">
+                <div class="card mt-2">
+                  <div class="card-header" role="tab" id="headingOne" style="background-color: #00aae7;display:inline-flex">
+                    <h6 class="mb-0" style="color:#ffffff">
+                      <a *ngIf="userFeedObje.length > 0 && ticketStatus ==='Completed'" style="color:#ffffff;line-height:1.5rem;word-break: break-word;">
+                        <strong>User Feedback :</strong>
+                        {{userFeedObje[0].statusComments}}
+                      </a>
+                    </h6>
+
+                  </div>
+                </div>
+              </div>
+              <div>
+
+                <div class="accordion" id="accordion" *ngIf="ticketStatus === 'Completed' && docFulldetails.closedBy != 'Automatic' && docFulldetails.solvedBy !=''" role="tablist">
+
+                  <div class="card mt-2">
+                    <div class="card-header" role="tab" id="headingOne" style="background-color: #232527;display:inline-flex">
+                      <h6 class="mb-0" style="color:#ffffff">
+                        <a style="color:#ffffff;line-height:1.5rem;word-break: break-word;">
+                          <strong>Rating for agent :</strong>
+                          <raja-rating [(ngModel)]="rating" [readonly]="true" [titles]="['Very Poor', 'Poor', 'Good', 'Very Good', 'Excellent']"></raja-rating>
+                        </a>
+
+                      </h6>
+
+                    </div>
+                  </div>
+                </div>
+                <div>
+
+
+
+                </div>
+
+                <hr>
+                   <div class="row" style="text-align: center;">
+                  <div class="col-sm-3" style="text-align: center;display: inline-flex;">
+                    <div style="margin-left: auto;margin-right: auto;display: inline-flex;">
+                      <strong *ngIf=" ticketStatus === 'Opened' || (ticketStatus === 'Assigned' && docFulldetails.assignedTo != userLoginId) || (docFulldetails.assignedTo != userLoginId && ticketStatus === 'In progress') || ticketStatus === 'Solved' || ticketStatus === 'Escalated'|| ticketStatus === 'Cancelled'|| ticketStatus === 'Completed'|| blockchages === true ">Status</strong>
+                      <div *ngIf="!((ticketStatus === 'Opened' || (ticketStatus === 'Assigned' && docFulldetails.assignedTo != userLoginId) || (docFulldetails.assignedTo != userLoginId && ticketStatus === 'In progress') || ticketStatus === 'Solved' || ticketStatus === 'Escalated'|| ticketStatus === 'Cancelled'|| ticketStatus === 'Completed') || blockchages === true) "
+                        class="dropdown" data-toggle="tooltip" data-placement="bottom" title="Change ticket status">
+                        <button class="btn icon-btn dropdown-toggle" type="button" id="dropdownMenuIconButton1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false" style="background-color: transparent;padding: initial;">
+                          <strong>Status</strong>
+                          <i></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 21px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <h6 class="dropdown-header">
+                            <strong>Actions</strong>
+                          </h6>
+
+                          <a class="dropdown-item textbg" data-toggle="modal" *ngIf="(ticketStatus === 'Opened' || ticketStatus === 'Assigned')&& docFulldetails.assignedTo === userLoginId"
+                            style="cursor: pointer;" (click)="startTicket()">Start</a>
+                          <a *ngIf="ticketStatus === 'In progress'" class="dropdown-item textbg" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-11"
+                            (click)="statusUpdate(docFulldetails,'Solved');">Solve</a>
+                          <!-- <a class="dropdown-item textbg" (click)="statusUpdate('Completed')">Completed</a> -->
+                          <a *ngIf="ticketStatus === 'In progress'" class="dropdown-item textbg" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-11"
+                            (click)="statusUpdate(docFulldetails,'Escalated')">Escalate</a>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="col-sm-3" style="text-align: center;display: inline-flex;">
+                    <div style="margin-left: auto;margin-right: auto;display: inline-flex;">
+                      <strong *ngIf=" (RoleName === 'Agent'|| ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed'|| ticketStatus === 'Cancelled') && (RoleName !== 'Super-Admin' || RoleName !== 'Admin') || blockchages === true">Severity</strong>
+                      <div class="dropdown" *ngIf=" !((RoleName === 'Agent'|| ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed' || ticketStatus === 'Cancelled')  && (RoleName !== 'Super-Admin' || RoleName !== 'Admin') || blockchages === true )">
+                        <button class="btn icon-btn dropdown-toggle" type="button" id="dropdownMenuIconButton1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false" style="background-color: transparent;padding: initial; ">
+                          <strong data-toggle="tooltip" data-placement="bottom" title="Change severity">Severity</strong>
+                          <i></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1" (change)="changeSeverity($event)" x-placement="bottom-start"
+                          style="position: absolute; transform: translate3d(0px, 21px, 0px); top: 0px; left: 0px; will-change:transform; "
+                          data-toggle="modal" data-target="#exampleModal-27">
+
+                          <!-- <option value="High ">High </option>
+                            <option value="Medium ">Medium</option>
+                            <option value="Low ">Low</option> -->
+
+                          <a class="dropdown-item textbg pointer" (click)="changeSeverity( 'High')">High</a>
+                          <a class="dropdown-item textbg pointer" (click)="changeSeverity( 'Medium')">Medium</a>
+                          <a class="dropdown-item textbg pointer" (click)="changeSeverity( 'Low')">Low</a>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3" style="display: inline-flex;text-align: center;">
+                    <!-- {{RoleName}} -->
+                    <div style="margin-left: auto;margin-right: auto;display: inline-flex;">
+                      <strong *ngIf="((RoleName === 'Agent'|| ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed'|| ticketStatus === 'Cancelled' )  && (RoleName !== 'Super-Admin' || RoleName !== 'Admin') ||  blockchages === true)">Category</strong>
+                      <div *ngIf="!((RoleName === 'Agent'|| ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed'|| ticketStatus === 'Cancelled')  && (RoleName !== 'Super-Admin' || RoleName !== 'Admin') ||  blockchages === true ) "
+                        class="dropdown">
+                        <button class="btn icon-btn dropdown-toggle" type="button" id="dropdownMenuIconButton1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false" style="background-color: transparent;padding: initial;">
+                          <strong data-toggle="tooltip" data-placement="bottom" title="Change category">Category</strong>
+                          <i></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 21px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                          <a class="dropdown-item textbg pointer" *ngIf="docFulldetails.category != 'IT'" (click)="changeCategory1( 'IT')">IT</a>
+                          <a class="dropdown-item textbg pointer" *ngIf="docFulldetails.category != 'HR'" (click)="changeCategory1( 'HR')">HR</a>
+                          <a class="dropdown-item textbg pointer" *ngIf="docFulldetails.category != 'APPS'" (click)="changeCategory1( 'APPS')">APPS</a>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3" style="display: inline-flex;text-align: center;">
+                    <div style="margin-left: auto;margin-right: auto;display: inline-flex;">
+                      <strong *ngIf=" (ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed'|| ticketStatus === 'Cancelled') ||  blockchages === true">Sub-Category</strong>
+                      <div *ngIf=" !((ticketStatus === 'Solved' || ticketStatus === 'Escalated' || ticketStatus === 'Completed'|| ticketStatus === 'Cancelled') ||  blockchages === true)"
+                        class="dropdown">
+                        <button class="btn icon-btn dropdown-toggle" type="button" id="dropdownMenuIconButton1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false" style="background-color: transparent;padding: initial; ">
+                          <i></i>
+                          <strong data-toggle="tooltip" data-placement="bottom" title="Change sub-category">Sub-Category</strong>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 21px, 0px); top: 0px; left: 0px; will-change: transform; ">
+
+                          <a class="dropdown-item textbg pointer" *ngFor="let data of subCategoryNames" (click)="changeSubCategory(data.subCategoryName)"
+                            data-toggle="modal" data-target="#exampleModal-26">{{data.subCategoryName}}</a>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
+
+                <!-- edited ending -->
+                <hr>
+                <div class="row" style="text-align:center;">
+                  <div class="col-sm-3">
+
+                    <label [ngClass]="ngClassForIcons(docFulldetails.currentStatus)">{{ticketStatus==='In progress' ? 'In Progress' : ticketStatus}}</label>
+                  </div>
+                  <div class="col-sm-3">
+                    <label *ngIf="docFulldetails.adminSeverity===null || docFulldetails.adminSeverity ==='' " class="badge badge-success">--</label>
+                    <label *ngIf="docFulldetails.adminSeverity !=null" [ngClass]="ngClassForSeviorty(docFulldetails.adminSeverity)">{{docFulldetails.adminSeverity}}</label>
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="badge badge-dark">{{docFulldetails.category}}</label>
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="badge badge-success">{{docFulldetails.subCategory}}</label>
+                  </div>
+                </div>
+            
+                <hr>
+
+              </div>
+              <div class=" " id="reachagent" style="margin-top:-15px;max-height:286px;overflow-y:auto;overflow-x:hidden;">
+                <h4 class="card-title mt-3 mb-0">Comments
+                  <span class="count badge-dark" style="font-size:12px;padding: 0.5% 1%;border-radius:50%;">{{commentArray.length}}</span>
+                </h4>
+                <div class="row" id="reachagent1">
+                  <div *ngFor="let comment of commentArray" class="col-sm-12">
+                    <table class="mt-4">
+                      <tbody>
+                        <tr class="mt-2">
+                          <td>
+                            <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{comment.commentedBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png' ; "
+                              style="height:40px;width:40px;border-radius:50%;" data-toggle="tooltip" data-placement="bottom"
+                              title="{{comment.commentedBy}}">
+                          </td>
+                          <td>&nbsp;&nbsp;</td>
+                          <td style="width:100%" class="cmnt">
+                            <b>{{comment.commentedBy}}</b> &nbsp; {{comment.commentDescription}}
+                            <p class="pull-right text-muted" style="margin-bottom:0%;">
+                              <strong>{{convertToLocalDate(comment.commentedDate) | amTimeAgo }}</strong>
+                            </p>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row" style="margin-top:3%;">
+                <div class="col-sm-12">
+                  <table>
+                    <tbody>
+                      <!-- <tr *ngIf="ticketStatus !='Opened' && ticketStatus !='Assigned' && ticketStatus !='Completed'"> -->
+                      <tr *ngIf="ticketStatus != 'Cancelled' && ticketStatus != 'Completed'">
+                        <td>
+                          <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png' ; "
+                            style="height:40px;width:40px;border-radius:50%; " data-toggle="tooltip" data-placement="bottom"
+                            title="{{userFullName}}">
+                        </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td style="width:100%;"> 
+                          <input #inputstring [(ngModel)]="comment" name="comment" (keyup.enter)="userComment(inputstring.value)"  placeholder="Type your message"
+                            class="form-control" style="border-radius:15px;height:35px;border:1px solid #B7B2B3 " type="text ">
+                            <!--  <input (keyup.shift)="toShowUserList(inputstring.value)" (keyup)="filtering(comment)">
+                              <div *ngIf="showUserlist" class="for-contributor-suggestion-list ">
+                              <div *ngFor="let names of tempStates">
+                              <div (click)="storeValue(names)"  class="myOptions row-helight"  value="">
+                                  <img class="contributors-names-list-image" src="http://www.miraclesoft.com/images/employee-profile-pics/{{names.LoginId}}.png"  onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';">
+                                 <span style="padding-left:1px;font-weight:bold; cursor: pointer;">
+                                    {{names.LoginId}} - {{names.Name}}
+                                 </span>
+                                </div>
+                              </div>
+                          </div> -->
+                        </td>&nbsp;&nbsp;
+                        <td (click)="userComment(comment)">
+                          <i class="fa fa-telegram" style="font-size: 30px;color: #2368a0;"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- loader for assign panel -->
+<div *ngIf="!showLoader" class="main-panel">
+  <div class="content-wrapper">
+
+    <div class="card grid-margin stretch-card" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-8">
+            <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff">Ticket Status</h4>
+          </div>
+          <div class="col-sm-4">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a [routerLink]="[ '/admin/dashboard'] " style="color:#00aae7;">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a [routerLink]="[ '/admin/assign'] " style="color:#00aae7;">Tickets</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Ticket Status</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:170px !important;">
+
+      <div style="text-align:center;">
+        <img src="assets/images/Loader.gif" class="text-center">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="ticketAssignedStatus===true" class="modal fade show" id="exampleModal-11" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  style="padding-right: 17px; display: block;margin-top: 8%;">
+  <div *ngIf="ticketAssignedStatus===true && ticketCommentModal===true" class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div *ngIf="ticketUpdate==='Solved'">
+          <p class="text-center">
+            <strong>Let us know how you resolved it</strong>
+          </p>
+          <form #frmd1="ngForm" action="">
+            <div>
+              <textarea class="form-control" [(ngModel)]="statusComment" style="word-break:break-word;" name="usrname4" placeholder="Provide your answer" id="username4"
+                type="text" maxlength="200" minlength="20" [ngClass]="{'danger': statusError,'success': !statusError}" required ></textarea>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-3">
+                <div class="text-center ">
+                  <button class="btn btn-success" [disabled]="frmd1.invalid" (click)="submitStatusComment()">Submit <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="text-center">
+                  <button class="btn btn-danger" (click)="clearStatusComment()">Cancel</button>
+                </div>
+              </div>
+              <div class="col-sm-3"></div>
+
+
+
+            </div>
+
+          </form>
+
+        </div>
+
+        <div *ngIf="ticketUpdate==='Escalated'">
+          <p class="text-center">
+            <strong>Let us know why you Escalated it</strong>
+          </p>
+          <form #frmd2="ngForm">
+            <div>
+
+              <select [(ngModel)]="selectEscalstedValue" class="form-control dropsev" name="selectNames" required (change)="selectEscalsted($event)">
+
+                <option value="" selected>Select </option>
+                <option value="I am not in that location">I am not in that location </option>
+                <option value="I do not know how to solve this">I do not know how to solve this</option>
+                <option value="I am not authorized to solve it">I am not authorized to solve it</option>
+
+                <option value="Other">Other</option>
+
+
+              </select>
+
+            </div>
+
+
+            <div class="mt-4" *ngIf="enableTextarea">
+              <textarea class="form-control" [(ngModel)]="statusComment" style="word-break:break-word;" name="usrname4" placeholder="Provide your answer" id="username4"
+                type="text" maxlength="200" minlength="20" [ngClass]="{'danger': statusError,'success': !statusError}" required></textarea>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-3">
+                <div class="text-center">
+                  <button class="btn btn-success" [ngClass]="{'pointer1': frmd2.invalid }" [disabled]="frmd2.invalid" (click)="submitStatusComment()">Submit <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="text-center">
+                  <button class="btn btn-danger" (click)="clearStatusComment()">Cancel</button>
+                </div>
+              </div>
+              <div class="col-sm-3"></div>
+
+
+            </div>
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- ticket assign agent start popup -->
+<div class="modal fade" id="exampleModal-15" style="margin-top:10" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong>Do you want to start working on this ticket?</strong>
+        </h4>
+        <p>
+          <strong>If yes, your service time will be considered until you solve this ticket</strong>
+        </p>
+        <button class="btn btn-primary mr-2" data-dismiss="modal" (click)="statusUpdate(docFulldetails, 'In progress')">OK</button>
+        <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal-16" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:60%;">
+    <div class="modal-content" style="border:none !important;">
+      <div class="modal-body text-center" *ngFor="let data of escalatedObject">
+        <div class="row">
+
+          <div class="col-sm-4" style="top:0;bottom:0; margin:auto">
+            <div>
+              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{data.createdBy}}.png " onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png'; "
+                class="rounded-circle " style="height:50px;width:50px " data-toggle="tooltip" data-placement="bottom" title="{{data.createdByName}}">
+              <h6 style="margin-top:5%;">
+                <strong>{{data.createdBy}}</strong>
+              </h6>
+              <p class="designation text-muted">{{data.designation}}</p>
+            </div>
+          </div>
+          <div class="col-sm-1" style="border-left:2px solid #B7B2B3 !important;"> </div>
+          <div class="col-sm-7">
+
+            <p class="text-danger" style="text-align:left">
+              <strong>{{data.statusComments}}</strong>
+            </p>
+            <p class="text-muted pull-right" style="bottom:-15px;right:10px;position:absolute">
+              <i class="fa fa-clock-o mr-2"></i>{{data.createdDate | date }}</p>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal-56" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:60%;">
+    <div class="modal-content" style="border:none !important;">
+      <div class="modal-body text-center" *ngFor="let data of reOpenObject">
+        <div class="row">
+
+          <div class="col-sm-4" style="top:0;bottom:0; margin:auto">
+            <div>
+              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{data.createdBy}}.png " onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png'; "
+                class="rounded-circle " style="height:50px;width:50px " data-toggle="tooltip" data-placement="bottom" title="{{data.createdByName}}">
+              <h6 style="margin-top:5%;">
+                <strong>{{data.createdBy}}</strong>
+              </h6>
+              <p class="designation text-muted">{{data.designation}}</p>
+            </div>
+          </div>
+          <div class="col-sm-1" style="border-left:2px solid #B7B2B3 !important;"> </div>
+          <div class="col-sm-7">
+
+            <p class="text-danger" style="text-align:left">
+              <strong>{{data.statusComments}}</strong>
+            </p>
+            <p class="text-muted pull-right" style="bottom:-15px;right:10px;position:absolute">
+              <i class="fa fa-clock-o mr-2"></i>{{data.createdDate | date }}</p>
+          </div>
+          <hr>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal-20" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:60%;">
+    <div class="modal-content" style="border:none !important;">
+
+      <div class="modal-body text-center" *ngFor="let data of escalatedObject">
+        <div class="row">
+
+          <div class="col-sm-4" style="border-right:2px solid #B7B2B3">
+            <div>
+              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{data.createdBy}}.png " onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png'; "
+                class="rounded-circle " style="height:50px;width:50px " data-toggle="tooltip" data-placement="bottom" title="{{data.createdByName}}">
+              <h6 style="margin-top:5%;">
+                <strong>{{data.createdBy}}</strong>
+              </h6>
+              <p class="designation text-muted">{{data.Designation}}</p>
+            </div>
+          </div>
+          <div class="col-sm-1" style="border-right:2px solid #B7B2B3"> </div>
+          <div class="col-sm-7">
+
+            <p class="text-danger" style="text-align:left">
+              <strong>{{data.statusComments}}</strong>
+            </p>
+            <p class="text-muted pull-right">
+              <i class="fa fa-clock-o"></i>{{data.createdDate | date }}</p>
+          </div>
+
+        </div>
+        <div class="stars" style="font-size: 11px;display:inline-flex;">
+
+          <p class="text-light mt-2 ml-3">
+            <!-- <strong>3/5</strong> -->
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- conformation for changing category  popup -->
+<div class="modal fade" id="exampleModal-28" style="margin-top:14%" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success mb-3">
+          <strong style="color:black "> Please select the severity of the ticket </strong>
+        </h4>
+        <select class="form-control dropsev" name="selectName" (change)="assignSeverity($event)"
+          required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+          <option value="" disabled selected>Select</option>
+          <option value="High">High </option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+
+        </select>
+        <button class="btn btn-primary mt-3"  (click)="assign()" [disabled]='enable1'>Ok&nbsp;&nbsp;<i *ngIf='block' class="fa fa-spinner fa-spin "></i></button>
+        <button class="btn btn-danger mt-3 ml-1" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal-27" style="margin-top:14%" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong style="color:black">Do you want to change the Severity of ticket?</strong>
+        </h4>
+        <button class="btn btn-primary mt-2 mr-2" data-dismiss="modal" (click)="changeCategory()">Yes <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+        <button class="btn btn-danger mt-2" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal-26" style="margin-top:14%" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong style="color:black">Do you want to change the Sub-Category of ticket?</strong>
+        </h4>
+        <button class="btn btn-primary mt-2 mr-2" data-dismiss="modal" (click)="changesubCategory()">Yes <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+        <button class="btn btn-danger mt-2" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal-25" style="margin-top:14%" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong style="color:black">Do you want to change the category of ticket?</strong>
+        </h4>
+        <button class="btn btn-primary mt-2 mr-2" data-dismiss="modal" (click)="changeCategory()">Yes <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+        <button class="btn btn-danger mt-2" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end -->
+
+<!--assign ticket model-->
+<div class="modal fade" id="exampleModal-100" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document" style="margin-top:18%;">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div style="text-align:center">
+            <i class="fa fa-check-circle text-success" style="font-size:4rem"></i>
+          </div>
+          <h5 class="text-center text-dark mt-3">
+            <strong>Ticket has been assign successfully
+            </strong>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- image popup modal -->
+<div class="modal fade" id="exampleModal-24" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content" style="background-color:transparent;border:none;">
+      <div class="modal-body text-center">
+        <h4 class="card-title" style="text-transform:none;"></h4>
+        <img *ngIf="imageLoader" src="assets/images/mm1.gif" class="text-center" style="height:150px; width:auto;">
+        <img *ngIf="!imageLoader" src="{{imageSrc}}" style="height:350px; width:auto;margin-left:auto;margin-right:auto;">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ticket assign agent start popup -->
+<div class="modal fade" id="exampleModal-31" style="margin-top:10" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong>Before starting this ticket please add sub-category !</strong>
+        </h4>
+        <!-- <p>
+          <strong>If yes, your service time will be considered until you solve this ticket</strong>
+        </p> -->
+        <!-- <button class="btn btn-primary" data-dismiss="modal" (click)="statusUpdate(docFulldetails, 'In progress')">OK</button> -->
+        <button class="btn btn-danger mt-2" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,220 @@
+.breadcrumb {
+    border: none !important;
+    padding: 0rem;
+    margin-top: -7px !important;
+  background-color:#232527;
+}
+
+#header
+{
+  padding: 0rem 1.81rem;
+    
+padding-top: 2%;
+}
+.ttletxt:hover
+{
+ text-decoration:none !important; 
+}
+.ttletxt
+{
+ color:#232527 !important; 
+}
+.badge{
+width:78px; }
+
+.widhight{
+  height:345px;
+}
+.cmnt {
+    background-color: #d3d3d36b;
+    font-size: 13px;
+    border-radius: 14px;
+    color: #000;
+    padding: 10px;
+    margin-left: -80px;
+}
+.hidegr{
+    background-color: none; 
+}
+.ttletxt:hover
+{
+    cursor:pointer;
+}
+.ftrbtn{
+    padding: 0px !important;
+    margin: -18px 13px;
+}
+.ticbtn{margin-top: -42px;}
+
+.ttletxt
+{
+ color:#232527 !important; 
+}
+.ttletxt:hover
+{
+ text-decoration:none !important; 
+}
+
+.iconcolr{color:#232527 !important;}
+
+ .nav-item.active{
+     background-color:#e3e3e3;
+    color: white;
+}
+
+.btn-primary:hover, .wizard > .actions a:hover
+{
+ background-color:#2368a0;
+ border-color:#2368a0;
+}
+.btn-primary:focus, .btn-primary.focus
+{
+    background-color:#00aae7;
+ border-color:#00aae7;
+}
+.add-button
+{
+ line-height:1.8;
+ height:44px;
+ background-color:#2368a0 !important;
+ border-color:#2368a0 !important;   
+}
+.add-button:hover
+{
+    background-color:#00aae7 !important;
+ border-color:#00aae7 !important;   
+}
+
+.rounded
+{
+ border-radius:50% !important;
+}
+.card
+{
+	border:1px solid #dddddd
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height:43px;
+  border-radius: 0.1875rem;
+  background-color: #00aae7;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 34px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+input:checked + .slider {
+  background-color: #00aae7;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #00aae7;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.bg-notifications
+{
+ background-color:#e1e1e1;
+ font-weight:900;
+}
+.bg-notifications-footer
+{
+ background-color:#e1e1e1;
+ font-weight:900;
+}
+.row-helight:hover
+{
+  background-color:#f1f1f1;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+.card-h {
+  position: relative;
+  height: 44px;
+  width: 60px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+color:#ffffff;
+
+}
+.card-h :hover
+{
+  cursor:pointer;
+}
+  .card-h div {
+      position: absolute;
+      height: 44px;
+      width: 60px;
+ background-color:#ef4048;
+      text-align: center;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 2px;
+  }
+  .card-h div:hover{
+    background-color:red;
+  }
+  .card-h .back {
+      background: #222;
+      color: #FFF;
+      -webkit-transform: rotateX(180deg);
+      transform: rotateX(180deg);
+  }
+  .card-h .back:hover {
+background-color: #000;
+  }
+.flip {
+  display: none;
+}
+:checked + .card-h {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+}
+.flip-label:checked + .card-h {
+  -webkit-transform: rotateX(160deg);
+  box-shadow: 0 20px 20px rgba(255,255,255,.2);
+}
+@media screen and (max-width: 1280px) and (min-width: 990px) {
+  .tickets-count{
+    font-size:10px !important;
+}
+    }
+.row-helight:focus
+{
+border:none !important;
+outline:none !important;
+}

@@ -1,0 +1,1112 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="card mb-4" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-9">
+            <h4 class="card-title" style="margin-top:-4px;text-transform:none;color:#ffffff">Tickets</h4>
+          </div>
+          <div class="col-sm-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a href="/admin/dashboard" style="color:#00aae7">Home</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">Tickets</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 add-items d-flex">
+            <input type="text" #myInput class="form-control todo-list-input" [(ngModel)]="name" (input)="filterItem(myInput.value)" placeholder="Ticket ID, Title, Location, Keywords or Status"
+              style="height:44px;">
+            <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Search <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+          </div>
+        </div>
+
+        <div class=" grid-margin stretch-card">
+          <div class="card" style="margin-bottom:-40px;">
+            <div class="">
+              <ul class="nav nav-tabs tab-solid tab-solid-primary" role="tablist" id="test">
+                <!-- checking condition if user is admin or super admin if admin we showing panel as a visiable and also  active -->
+                <li *ngIf="showAssignedPanel" class="nav-item" >
+                  <a [ngClass]="ngclassUnass()" id="tab-6-1" (click)="unAssigned()" data-toggle="tab" href="#unassigned" role="tab" aria-controls="home-6-1"
+                    aria-selected="true">
+                    <div style="margin-top:2px;"><i class="fa fa-warning"></i>Open</div> &nbsp;&nbsp;<span [ngClass]="tab1 ? 'badge3 badge-light' : 'badge3 badge-primary'">{{singleDigit(unAssignedListLength1)}}</span></a>
+                   
+                </li>
+
+                <!-- checking condition if user is admin or super admin if agent we showing panel as a active and hiding un assigned panel -->
+                <li *ngIf="showAssignedPanel" class="nav-item">
+                  <a [ngClass]="ngclassAss()" id="tab-6-2" (click)="assigned()" data-toggle="tab" href="#assigned" role="tab" aria-controls="profile-6-2"
+                    aria-selected="false">
+                    <div style="margin-top:-2px;"><i class="fa fa-pencil-square-o" style="margin-top:4px;"></i>Assigned </div>&nbsp;&nbsp;<span [ngClass]="tab2 ? 'badge3 badge-light' : 'badge3 badge-primary'" >{{singleDigit(assignedListLength1)}}</span></a>
+                </li>
+                <li class="nav-item">
+                  <a [ngClass]="ngclassYour()" id="tab-6-2" (click)="yourTaks()" data-toggle="tab" href="#yourtasks"
+                    role="tab" aria-controls="profile-6-2" aria-selected="false">
+                    <div style="margin-top:0px;"><i class="fa fa-tasks"></i>Your Tasks</div> &nbsp;&nbsp;<span [ngClass]="tab3 ? 'badge3 badge-light' : 'badge3 badge-primary'" >{{singleDigit(yourtaksListLength1)}}</span></a>
+                </li>
+                <li class="nav-item">
+                  <a [ngClass]="ngclassEscalated()" id="tab-6-2" (click)="escalated()" data-toggle="tab" href="#escalated" role="tab" aria-controls="profile-6-2"
+                    aria-selected="false">
+                    <div  style="margin-top:1px;"><i class="fa fa-question"></i>Escalated </div>&nbsp;&nbsp;<span [ngClass]="tab4 ? 'badge3 badge-light' : 'badge3 badge-primary'" >{{singleDigit(escalatedListLength1)}}</span></a>
+                </li>
+
+                <li class="nav-item">
+                  <a [ngClass]="ngclassSolved()" id="tab-6-2" (click)="solved()" data-toggle="tab" href="#solved" role="tab" aria-controls="profile-6-2"
+                    aria-selected="false">
+                    <div style="margin-top:2px;"><i class="fa fa-check"></i>Closed </div>&nbsp;&nbsp;<span [ngClass]="tab5 ? 'badge3 badge-light' : 'badge3 badge-primary'" >{{singleDigit(solvedTicketsLength1)}}</span></a>
+                </li>
+              </ul>
+              <div class="tab-content tab-content-solid">
+                <!-- unAssigned div starting panel   -->
+                <div *ngIf="showAssignedPanel" [ngClass]="showUnass ? 'tab-pane fade show active' : 'tab-pane fade'" id="unassigned" role="tabpanel" aria-labelledby="tab-6-1">
+                  <table class="table" style="border: 1px solid #EEEEEE;border-radius: 6px;">
+                    <tbody style="text-align:left;">
+                      <tr>
+                        <th class="text-primary" style="text-align:left;padding-left:47px;">
+                          <strong>Title</strong>
+                        </th>
+
+
+                        <th class="text-primary" style="text-align:left;">
+                          <strong>Location</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Category</strong>
+                        </th>
+                        <th class="text-primary" style="text-align:left;">
+                          <strong>Severity</strong>
+                        </th>
+                        <th class="text-primary" style="text-align:left;">
+                          <strong>Assign to</strong>
+                        </th>
+                        <th class="text-primary" style="text-align:left;">
+                          <strong>Timer </strong>
+                        </th>
+                        <!--<th style="text-align:left;"><strong>Actions</strong></th>-->
+                      </tr>
+                      <tr class="row-helight" *ngFor="let userTicket of unAssignedObject ; let i = index">
+
+
+                        <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" style="text-align: left;width:340px;line-height:1.5rem;cursor: pointer;"
+                          class="remove-helight">
+
+
+                          <div class="row">
+                            <div class="col-sm-2" style="top: 0;margin: auto;bottom: 0;">
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.createdByName}}">
+                            </div>
+                            <div class="col-sm-10 ">
+                              <div>
+                                <a class="ttletxt remove-helight" style="color:#232527;text-decoration:none;" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.ticketTitle}}">{{titleConcat(userTicket.ticketTitle)}}</a>
+                              </div>
+                              <div style="display:inline-flex">
+
+                                <div class="mt-3">
+                                  <small class=" badge2 badge-primary">
+                                     {{userTicket.trackingId}}</small>
+                                </div>
+                                <div class="mt-2 ml-2">
+                                  <small class="text-muted text-primary" >
+                                    {{convertToLocalDate(userTicket.createdDate) | date:' d-MMM '}} at {{convertToLocalDate(userTicket.createdDate) | date:'hh-mm a'}}
+                                  </small>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+
+                        </td>
+
+                        <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" >
+                        
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="text-primary remove-helight" style="cursor: pointer">{{userTicket.location !='' ? userTicket.location : '--'}}</div>
+                            <div class="mt-2">
+                              <small class="text-muted text-primary" style="font-size:12px;" *ngIf="userTicket.shiftTimings != -1 && userTicket.shiftTimings != '' ">
+                                ( {{splitTiming(userTicket.shiftTimings,userTicket.location)}} )
+                              </small>
+                              <small class="text-muted text-primary" style="font-size:12px;" *ngIf="userTicket.shiftTimings == -1 || userTicket.shiftTimings === ''">
+                                  (&nbsp;--&nbsp;)
+                                </small>
+                            </div>
+                          </div>
+                        </div>
+                        </td>
+                        <td>
+            
+                          <select class="form-control dropsev" name="selectNames" (change)="changeCategory($event,userTicket,i)" required data-toggle="tooltip"
+                            data-placement="bottom" title="Select Category">
+                            <option value="" disabled selected>{{userTicket.category}}</option>
+                            <option *ngIf="userTicket.category != 'APPS'" value="APPS">APPS </option>
+                            <option *ngIf="userTicket.category != 'HR'" value="HR">HR</option>
+                            <option *ngIf="userTicket.category != 'IT'" value="IT">IT</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select *ngIf="i == 0" [ngClass]="{'dirty':selectSeverityerror}" class="form-control dropsev" name="selectName" (change)="selectSeverity($event,i)"
+                            required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+                            <option value="" disabled selected>Select</option>
+                            <option value="High">High </option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                          <select *ngIf="i == 1" [ngClass]="{'dirty':selectSeverityerror1}" class="form-control dropsev" name="selectName" (change)="selectSeverity($event,i)"
+                            required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+                            <option value="" disabled selected>Select</option>
+                            <option value="High">High </option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                          <select *ngIf="i == 2" [ngClass]="{'dirty':selectSeverityerror2}" class="form-control dropsev" name="selectName" (change)="selectSeverity($event,i)"
+                            required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+                            <option value="" disabled selected>Select</option>
+                            <option value="High">High </option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                          <select *ngIf="i == 3" [ngClass]="{'dirty':selectSeverityerror3}" class="form-control dropsev" name="selectName" (change)="selectSeverity($event,i)"
+                            required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+                            <option value="" disabled selected>Select</option>
+                            <option value="High">High </option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                          <select *ngIf="i == 4" [ngClass]="{'dirty':selectSeverityerror4}" class="form-control dropsev" name="selectName" (change)="selectSeverity($event,i)"
+                            required data-toggle="tooltip" data-placement="bottom" title="Select Severity">
+                            <option value="" disabled selected>Select</option>
+                            <option value="High">High </option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                        </td>
+
+                        <td >
+
+
+                          <!-- Unassign panle opening -->
+                          <div >
+                            <form class="example-form">
+                              <mat-form-field class="example-full-width">
+
+                                <div [ngClass]="{'chips1':(i == 0 &&assignedToName1 != ''), 'chips2':!(i == 0 &&assignedToName1 != '') }">
+                                  <img *ngIf="i == 0 && assignedToName1 !== ''&& disable1 " class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName1}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName1}}"> &nbsp;&nbsp;
+
+                                  <input *ngIf="i == 0" name="assignedToName1" [(ngModel)]="assignedToName1" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto1" [formControl]="stateCtrl" (keyup)="spinner()" (focusout)="spinner01()"> 
+
+                                  <i style="margin-top:6%" *ngIf="disable1  && i == 0" class="fa fa-times-circle cross" (click)="cancle1()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i> 
+                                    <i *ngIf="i === 0 && spinenable" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                  <!-- <i *ngIf="i != 0 && spinenable" class="spinner" style="position:relative;font-size:20px;
+                                  top: 10px;left: 110px;"></i> -->
+                                </div>
+                                
+                                <mat-autocomplete #auto1="matAutocomplete"  (optionSelected)="selected($event,i)">
+                                  <mat-option  *ngFor="let state of filteredStates0 | async" [value]="state.LoginId" >
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 1 &&assignedToName2 != ''), 'chips2':!(i == 1 &&assignedToName2 != '') }">
+                                  <img *ngIf="i == 1 && assignedToName2 !== '' && disable2" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName2}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName2}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 1" name="assignedToName2" [(ngModel)]="assignedToName2" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto2" [formControl]="stateCtrl1"  (keyup)="spinner1()" (focusout)="spinner11()">
+                                  <i style="margin-top:6%" *ngIf="disable2  && i == 1" class="fa fa-times-circle cross" (click)="cancle2()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 1 && spinenable1" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates1 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small  class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 2 &&assignedToName3 != ''), 'chips2':!(i == 2 &&assignedToName3 != '') }">
+                                  <img *ngIf="i == 2 && assignedToName3 !== '' && disable3" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName3}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName3}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign To" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2" (keyup)="spinner2()" (focusout)="spinner21()">
+                                  <i style="margin-top:6%" *ngIf="disable3  && i == 2" class="fa fa-times-circle cross" (click)="cancle3()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 2 && spinenable2" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+
+                                <!-- <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2"> -->
+
+                                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates2 | async" [value]="state.LoginId">
+                                    <img class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <div [ngClass]="{'chips1':(i == 3 &&assignedToName4 != ''), 'chips2':!(i == 3 &&assignedToName4 != '') }">
+                                  <img *ngIf="i == 3 && assignedToName4 !== '' && disable4" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName4}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName4}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto4" [formControl]="stateCtrl3" (keyup)="spinner3()" (focusout)="spinner31()">
+                                  <i style="margin-top:6%" *ngIf="disable4  && i == 3" class="fa fa-times-circle cross" (click)="cancle4()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 3 && spinenable3" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <!-- <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto4" [formControl]="stateCtrl3" value=" "> -->
+
+                                <mat-autocomplete #auto4="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates3 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 4 &&assignedToName5 != ''), 'chips2':!(i == 4 &&assignedToName5 != '') }">
+                                  <img *ngIf="i == 4 && assignedToName5 !== '' && disable5" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName5}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName5}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto5" [formControl]="stateCtrl4" (keyup)="spinner4()" (focusout)="spinner41()">
+                                  <i style="margin-top:6%" *ngIf="disable5  && i == 4" class="fa fa-times-circle cross" (click)="cancle5()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 4 && spinenable4" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+                                <!-- <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto5" [formControl]="stateCtrl4"> -->
+
+                                <mat-autocomplete #auto5="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates4 | async" [value]="state.LoginId">
+                                    <img   class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <!-- <i *ngIf="spinenable" class="fa fa-spinner fa-spin" style="position:relative;font-size:20px;left: 110px;
+                                top: 10px;"></i> -->
+                              </mat-form-field>
+                             
+                            </form>
+                           
+                          </div>
+                          <!-- Unassign panle ending -->
+
+                        </td>
+
+                        <td  class="remove-helight" style="cursor: pointer;" >
+                          <p class="text-primary mt-3">{{ convertToLocalDate(userTicket.createdDate) | amTimeAgo}}</p>
+                        </td>
+
+                        <td class="align-items-left">
+                          <i *ngIf="disable1  && i == 0" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px; cursor: pointer;"
+                            (click)="editTicketDeatils1(userTicket,i)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable2  && i == 1" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils1(userTicket,i)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable3  && i == 2" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils1(userTicket,i)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable4  && i == 3" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils1(userTicket,i)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable5  && i == 4" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils1(userTicket,i)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+
+                          <i *ngIf="checkValue(userTicket) && !(disable1  && i === 0) && !(disable2  && i === 1) && !(disable3  && i === 2)  && !(disable4  && i === 3 ) && !(disable5  && i === 4 )"
+                            class="fa fa-exclamation-circle text-danger" style="font-size:21px" data-toggle="tooltip" data-placement="bottom"
+                            title="Overdue"></i>
+                        </td>
+                        <!-- <td >
+                            <i  *ngIf="checkValue(userTicket)" class="fa fa-exclamation-circle text-danger"  style="font-size:21px" data-toggle="tooltip" data-placement="bottom" title="Overdue"></i>
+                        </td> -->
+
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                  <div *ngIf="loader" style="margin-top: 2%">
+
+                    <div class="row">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <img src="assets/images/Loader.gif" class="text-center">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div *ngIf="unAssignedListLength >5 " class="email-filters-right">
+                    <p-paginator [rows]="pageSize" [totalRecords]="unAssignedListLength" [first]='unassfirst' (onPageChange)="getUnAssignedDocDet($event)" styleClass="ui-paginator"
+                      class="pull-right mt-4"></p-paginator>
+                  </div>
+                  <!-- no tickets found div -->
+                  <div *ngIf="noTicketsDiv === true">
+                    <div class="row mt-3" style="margin-top:50px;">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 mt-3">
+                        <h2 style="text-align:center;">Oops, no tickets found!</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- no tickets found div -->
+                </div>
+                <!-- unAssigned div starting panel   -->
+
+
+
+
+                <!-- assigned tickets panel -->
+                <!-- checking condition if user is admin or super admin if agent we showing panel as a active and hiding un assigned panel -->
+                <div [ngClass]="showAss ? 'tab-pane fade show active' : 'tab-pane fade'" id="assigned" role="tabpanel" aria-labelledby="tab-6-2">
+                  <table class="table" style="border: 1px solid #EEEEEE;border-radius: 6px;">
+                    <tbody style="text-align:center;">
+                      <tr>
+                        <th class="text-primary" style="text-align:left;padding-left:5%;">
+                          <strong>Assigned to</strong>
+                        </th>
+                        <th class="text-primary" style="text-align: left;padding-left: 26px;">
+                          <strong>Title</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Timer</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Raised on</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Status</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Re-assign to</strong>
+                        </th>
+                      </tr>
+                      <tr class="row-helight" *ngFor="let userTicket of assignedObject; let i = index">
+                        <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" class="remove-helight" style="cursor: pointer;">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.assignedTo}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.assignedToName}}"> 
+                            </div>
+                            <div class="ml-3" style="text-align: left;width: 160px; ">
+                              <a class="ttletxt">
+                                <p class="mb-2" style="line-height: 1.2rem;">{{userTicket.assignedToName}}</p>
+                                <small class="text-muted">{{userTicket.category}}</small>
+                              </a>
+                            </div>
+                          </div>
+                        </td>
+                        <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" style="text-align: left; cursor: pointer;"
+                          class="remove-helight">
+                          <a class="ttletxt " style="color:#232527;text-decoration:none;" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.ticketTitle}}">{{stringSubstring(userTicket.ticketTitle)}}</a>
+                          <br>
+                          <div class="mt-3">
+                            <small class=" badge2 badge-primary">
+                              {{userTicket.trackingId}}</small>
+                          </div>
+                        </td>
+                        <td [routerLink]="['/admin/ticket']" class="remove-helight" style="cursor: pointer;" (click)="sendingDataToAgent(userTicket)">
+                          <p class="text-primary mt-3">{{ convertToLocalDate(userTicket.assignedDate) | amTimeAgo}}</p>
+                          <!-- <td class="text-primary"></td> -->
+                        </td>
+                        <td class="text-primary remove-helight" style="cursor: pointer;" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">{{userTicket.createdDate | date }}</td>
+                        <td>
+                          <label [ngClass]="ngClassForIcons1(userTicket.currentStatus)">{{userTicket.currentStatus==='In progress'? 'In Progress' : userTicket.currentStatus}}</label>
+                        </td>
+                        <td>
+                            <div *ngIf="userTicket.currentStatus === 'In progress'">
+                            --  
+                            </div>
+                          <!-- Unassign panle opening -->
+                          <div *ngIf="userTicket.currentStatus != 'In progress'">
+                            <form class="example-form">
+                              <mat-form-field class="example-full-width">
+
+                                <div [ngClass]="{'chips1':(i == 0 &&assignedToName1 != ''), 'chips2':!(i == 0 &&assignedToName1 != '') }">
+                                  <img *ngIf="i == 0 && assignedToName1 !== ''&& disable1 " class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName1}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName1}}"> &nbsp;&nbsp;
+
+                                  <input *ngIf="i == 0" name="assignedToName1" [(ngModel)]="assignedToName1" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto1" [formControl]="stateCtrl" (keyup)="spinner()" (focusout)="spinner01()"> 
+
+                                  <i style="margin-top:6%" *ngIf="disable1  && i == 0" class="fa fa-times-circle cross" (click)="cancle1()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i> 
+                                    <i *ngIf="i === 0 && spinenable" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                  <!-- <i *ngIf="i != 0 && spinenable" class="spinner" style="position:relative;font-size:20px;
+                                  top: 10px;left: 110px;"></i> -->
+                                </div>
+                                
+                                <mat-autocomplete #auto1="matAutocomplete"  (optionSelected)="selected($event,i)">
+                                  <mat-option  *ngFor="let state of filteredStates0 | async" [value]="state.LoginId" >
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 1 &&assignedToName2 != ''), 'chips2':!(i == 1 &&assignedToName2 != '') }">
+                                  <img *ngIf="i == 1 && assignedToName2 !== '' && disable2" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName2}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName2}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 1" name="assignedToName2" [(ngModel)]="assignedToName2" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto2" [formControl]="stateCtrl1"  (keyup)="spinner1()" (focusout)="spinner11()">
+                                  <i style="margin-top:6%" *ngIf="disable2  && i == 1" class="fa fa-times-circle cross" (click)="cancle2()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 1 && spinenable1" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates1 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small  class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 2 &&assignedToName3 != ''), 'chips2':!(i == 2 &&assignedToName3 != '') }">
+                                  <img *ngIf="i == 2 && assignedToName3 !== '' && disable3" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName3}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName3}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign To" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2" (keyup)="spinner2()" (focusout)="spinner21()">
+                                  <i style="margin-top:6%" *ngIf="disable3  && i == 2" class="fa fa-times-circle cross" (click)="cancle3()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 2 && spinenable2" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+
+                                <!-- <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2"> -->
+
+                                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates2 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <div [ngClass]="{'chips1':(i == 3 &&assignedToName4 != ''), 'chips2':!(i == 3 &&assignedToName4 != '') }">
+                                  <img *ngIf="i == 3 && assignedToName4 !== '' && disable4" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName4}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName4}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto4" [formControl]="stateCtrl3" (keyup)="spinner3()" (focusout)="spinner31()">
+                                  <i style="margin-top:6%" *ngIf="disable4  && i == 3" class="fa fa-times-circle cross" (click)="cancle4()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 3 && spinenable3" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <!-- <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto4" [formControl]="stateCtrl3" value=" "> -->
+
+                                <mat-autocomplete #auto4="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates3 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 4 &&assignedToName5 != ''), 'chips2':!(i == 4 &&assignedToName5 != '') }">
+                                  <img *ngIf="i == 4 && assignedToName5 !== '' && disable5" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName5}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName5}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto5" [formControl]="stateCtrl4" (keyup)="spinner4()" (focusout)="spinner41()">
+                                  <i style="margin-top:6%" *ngIf="disable5  && i == 4" class="fa fa-times-circle cross" (click)="cancle5()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 4 && spinenable4" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+                                <!-- <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto5" [formControl]="stateCtrl4"> -->
+
+                                <mat-autocomplete #auto5="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates4 | async" [value]="state.LoginId">
+                                    <img   class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <!-- <i *ngIf="spinenable" class="fa fa-spinner fa-spin" style="position:relative;font-size:20px;left: 110px;
+                                top: 10px;"></i> -->
+                              </mat-form-field>
+                             
+                            </form>
+                          </div>
+                          <!-- Unassign panle ending -->
+
+                        </td>
+                        <td>
+                          <i *ngIf="disable1  && i == 0" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px; cursor: pointer;"
+                            (click)="editTicketDeatilsassigned(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable2  && i == 1" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatilsassigned(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable3  && i == 2" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatilsassigned(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable4  && i == 3" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatilsassigned(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable5  && i == 4" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatilsassigned(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                        </td>
+                        <td>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="loader" style="margin-top: 2%">
+                    <div class="row">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <img src="assets/images/Loader.gif" class="text-center">
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+                  <div *ngIf="assignedListLength >5 " class="email-filters-right">
+                    <p-paginator [rows]="pageSize" [totalRecords]="assignedListLength" [first]='assfirst' (onPageChange)="getAssignedDocDetails($event)" styleClass="ui-paginator"
+                      class="pull-right mt-2"></p-paginator>
+                  </div>
+                  <!-- no tickets found div -->
+                  <div *ngIf="noTicketsDiv === true">
+                    <div class="row mt-3" style="margin-top:50px;">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 mt-3">
+                        <h2 style="text-align:center;">Oops, no tickets found!</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- no tickets found div -->
+
+                </div>
+                <!-- assigned tickets ending panel -->
+
+                <!-- escalated tickets starting panel -->
+                <div [ngClass]="showEscal ? 'tab-pane fade show active' : 'tab-pane fade'" id="escalated" role="tabpanel" aria-labelledby="tab-6-2">
+                  <table class="table" style="border: 1px solid #EEEEEE;border-radius: 6px;">
+                    <tbody style="text-align:center;">
+                      <tr>
+                        <th class="text-primary" style="text-align:center;padding-left:4%;">
+                          <strong>Escalated by</strong>
+                        </th>
+
+                        <th class="text-primary" style="text-align: center;padding-left: 26px;">
+                          <strong>Title</strong>
+                        </th>
+                        <th class="text-primary" style="text-align: center;padding-left: 26px;">
+                          <strong>Reason</strong>
+                        </th>
+                        <th class="text-primary" style="width:202px;">
+                          <strong>Raised on</strong>
+                        </th>
+                        <!-- <th class="text-primary">
+                          <strong>Status</strong>
+                        </th> -->
+                        <th *ngIf="RoleName !== 'Agent'" class="text-primary">
+                          <strong>Assign to</strong>
+                        </th>
+                        <!-- <th class="text-primary">
+                          <strong>Severity</strong>
+                        </th> -->
+                      </tr>
+
+                      <tr class="row-helight" *ngFor="let userTicket of escalatedObject; let i = index">
+                        <td [routerLink]="['/admin/ticket']" class="remove-helight" style="cursor: pointer;" (click)="sendingDataToAgent(userTicket)">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.assignedTo}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.assignedToName}}">
+                            </div>
+                            <div class="ml-3" style="text-align: left;width:100px;">
+                              <a class="ttletxt">
+                                <p class="mb-2" style="line-height: 1.2rem;">{{userTicket.assignedToName}}</p>
+                                <small class="text-muted">{{userTicket.category}}</small>
+                              </a>
+                            </div>
+                          </div>
+                        </td>
+                        <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" class="common remove-helight" style="text-align: center; cursor: pointer;width:400px;">
+                          <a class="ttletxt common remove-helight" style="color:#232527;text-decoration:none;" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.ticketTitle}}">{{stringSubstring(userTicket.ticketTitle)}}</a>
+                          <br>
+                          <div class="mt-2">
+                            <small class=" badge2 badge-primary">
+                              {{userTicket.trackingId}}</small>
+                          </div>
+                        </td>
+                        <td style="width:280px;line-height:1.5rem;cursor: pointer;" class="remove-helight" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">{{ getslatest(userTicket.escalated.reverse()) }}</td>
+                        <td class="text-primary remove-helight" style="cursor: pointer;" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">{{userTicket.createdDate | date }}</td>
+                        <!-- <td>
+                          <label [ngClass]="ngClassForIcons(userTicket.currentStatus)">{{userTicket.currentStatus}}</label>
+                        </td> -->
+
+                        <td *ngIf="RoleName !== 'Agent'">
+
+
+
+
+                          <!-- Unassign panle opening -->
+                          <div>
+                            <form class="example-form">
+                              <mat-form-field class="example-full-width">
+
+                                <div [ngClass]="{'chips1':(i == 0 &&assignedToName1 != ''), 'chips2':!(i == 0 &&assignedToName1 != '') }">
+                                  <img *ngIf="i == 0 && assignedToName1 !== ''&& disable1 " class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName1}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName1}}"> &nbsp;&nbsp;
+
+                                  <input *ngIf="i == 0" name="assignedToName1" [(ngModel)]="assignedToName1" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto1" [formControl]="stateCtrl" (keyup)="spinner()" (focusout)="spinner01()"> 
+
+                                  <i style="margin-top:6%" *ngIf="disable1  && i == 0" class="fa fa-times-circle cross" (click)="cancle1()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i> 
+                                    <i *ngIf="i === 0 && spinenable" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                  <!-- <i *ngIf="i != 0 && spinenable" class="spinner" style="position:relative;font-size:20px;
+                                  top: 10px;left: 110px;"></i> -->
+                                </div>
+                                
+                                <mat-autocomplete #auto1="matAutocomplete"  (optionSelected)="selected($event,i)">
+                                  <mat-option  *ngFor="let state of filteredStates0 | async" [value]="state.LoginId" >
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 1 &&assignedToName2 != ''), 'chips2':!(i == 1 &&assignedToName2 != '') }">
+                                  <img *ngIf="i == 1 && assignedToName2 !== '' && disable2" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName2}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName2}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 1" name="assignedToName2" [(ngModel)]="assignedToName2" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto2" [formControl]="stateCtrl1"  (keyup)="spinner1()" (focusout)="spinner11()">
+                                  <i style="margin-top:6%" *ngIf="disable2  && i == 1" class="fa fa-times-circle cross" (click)="cancle2()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 1 && spinenable1" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates1 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 2 &&assignedToName3 != ''), 'chips2':!(i == 2 &&assignedToName3 != '') }">
+                                  <img *ngIf="i == 2 && assignedToName3 !== '' && disable3" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName3}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName3}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign To" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2" (keyup)="spinner2()" (focusout)="spinner21()">
+                                  <i style="margin-top:6%" *ngIf="disable3  && i == 2" class="fa fa-times-circle cross" (click)="cancle3()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 2 && spinenable2" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+
+                                <!-- <input *ngIf="i == 2" name="assignedToName3" [(ngModel)]="assignedToName3" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto3" [formControl]="stateCtrl2"> -->
+
+                                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates2 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small  class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <div [ngClass]="{'chips1':(i == 3 &&assignedToName4 != ''), 'chips2':!(i == 3 &&assignedToName4 != '') }">
+                                  <img *ngIf="i == 3 && assignedToName4 !== '' && disable4" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName4}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName4}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto4" [formControl]="stateCtrl3" (keyup)="spinner3()" (focusout)="spinner31()">
+                                  <i style="margin-top:6%" *ngIf="disable4  && i == 3" class="fa fa-times-circle cross" (click)="cancle4()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 3 && spinenable3" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+
+                                <!-- <input *ngIf="i == 3" name="assignedToName4" [(ngModel)]="assignedToName4" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto4" [formControl]="stateCtrl3" value=" "> -->
+
+                                <mat-autocomplete #auto4="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates3 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                                <div [ngClass]="{'chips1':(i == 4 &&assignedToName5 != ''), 'chips2':!(i == 4 &&assignedToName5 != '') }">
+                                  <img *ngIf="i == 4 && assignedToName5 !== '' && disable5" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{assignedToName5}}.png"
+                                    style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom" title="{{assignedToName5}}"> &nbsp;&nbsp;
+                                  <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign To" aria-label="State"
+                                    [matAutocomplete]="auto5" [formControl]="stateCtrl4" (keyup)="spinner4()" (focusout)="spinner41()">
+                                  <i style="margin-top:6%" *ngIf="disable5  && i == 4" class="fa fa-times-circle cross" (click)="cancle5()" data-toggle="tooltip"
+                                    data-placement="bottom" title="Cancel"></i>
+                                    <i *ngIf="i === 4 && spinenable4" class="spinner"  style="position:relative;font-size:20px;top: -3px;
+                                    right: 14%;"></i>
+                                </div>
+                                <!-- <input *ngIf="i == 4" name="assignedToName5" [(ngModel)]="assignedToName5" matInput placeholder="Assign Team" aria-label="State"
+                                  [matAutocomplete]="auto5" [formControl]="stateCtrl4"> -->
+
+                                <mat-autocomplete #auto5="matAutocomplete" (optionSelected)="selected($event,i)">
+                                  <mat-option *ngFor="let state of filteredStates4 | async" [value]="state.LoginId">
+                                    <img  class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                                      onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                      height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                                    <span >{{idStringSubstring(state.LoginId)}}</span>
+                                    <small class="badge1 badge-primary" style="border-radius: 50%;padding: 0.8% 4%;">{{state.TicketCount}}</small>
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <!-- <i *ngIf="spinenable" class="fa fa-spinner fa-spin" style="position:relative;font-size:20px;left: 110px;
+                                top: 10px;"></i> -->
+                              </mat-form-field>
+                             
+                            </form>
+                          </div>
+                          <!-- Unassign panle ending -->
+
+                        </td>
+                        <td>
+                          <i *ngIf="disable1  && i == 0" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px; cursor: pointer;"
+                            (click)="editTicketDeatils(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable2  && i == 1" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable3  && i == 2" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable4  && i == 3" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                          <i *ngIf="disable5  && i == 4" class="fa fa-chevron-circle-right  text-success1" style="font-size:24px;cursor: pointer;"
+                            (click)="editTicketDeatils(userTicket)" data-toggle="tooltip" data-placement="bottom" title="Assign"></i>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div *ngIf="loader" style="margin-top: 2%">
+                    <!-- <div class="jumping-dots-loader " style="margin-left: auto; margin-right: auto ;margin-top: 5%;">
+  <span></span>
+  <span></span>
+  <span></span>
+</div> -->
+                    <div class="row">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <img src="assets/images/Loader.gif" class="text-center">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="escalatedListLength > 5 " class="email-filters-right">
+                    <p-paginator [rows]="pageSize" [totalRecords]="escalatedListLength" [first]='escalfirst' (onPageChange)="escalatedDocDetails($event)" styleClass="ui-paginator"
+                      class="pull-right mt-4"></p-paginator>
+                  </div>
+                  <!-- no tickets found div -->
+                  <div *ngIf="noTicketsDiv === true">
+                    <div class="row mt-3" style="margin-top:50px;">
+                      <div class="col-sm-12" style="text-align:center;">
+                        <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 mt-3">
+                        <h2 style="text-align:center;">Oops, no tickets found!</h2>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+                <!-- escalated tickets ending panel -->
+                <!-- your tickets starting panel -->
+                <div [ngClass]="showyourTasks()" id="yourtasks" role="tabpanel" aria-labelledby="tab-6-2">
+                  <div class="table" style="border: 1px solid #EEEEEE;border-radius: 6px;">
+                    <table class="table">
+                      <tbody style="text-align:center;">
+                        <tr>
+                          <th class="text-primary" style="text-align:left;padding-left:47px;">
+                            <strong>Ticket from</strong>
+                          </th>
+                          <th class="text-primary" style="text-align: left;padding-left: 29px;">
+                            <strong>Title</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Timer</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Raised on</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Status</strong>
+                          </th>
+                        </tr>
+                        <tr class="row-helight " style="height: 80px;" *ngFor="let userTicket of yourTasksObject">
+                          <td class="remove-helight" style="cursor: pointer;" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                  alt="profile image" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.createdByName}}">
+                              </div>
+                              <div class="ml-3" style="text-align: left;width:135px;">
+                                <p class="mb-2" style="line-height: 1.2rem;">{{userTicket.createdByName}}</p>
+                                <small class="text-muted">{{userTicket.createdByDepartment}}</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" class="common remove-helight" style="text-align:left;cursor: pointer;">
+                            <a class="ttletxt common" style="color:#232527;text-decoration:none;" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.ticketTitle}}">{{userTicket.ticketTitle}}</a>
+                            <br>
+                            <div class="mt-2">
+                              <small class=" badge2 badge-primary">
+                               {{userTicket.trackingId}}</small>
+                            </div>
+                          </td>
+                          <td style=" max-width:130px;cursor: pointer;" class="text-primary remove-helight" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">{{convertToLocalDate(userTicket.assignedDate) | amTimeAgo}}</td>
+                          <td style=" max-width:130px;cursor: pointer;" class="text-primary remove-helight" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">{{userTicket.createdDate | date }}</td>
+                          <td>
+                            <label [ngClass]="ngClassForIcons1(userTicket.currentStatus)">{{userTicket.currentStatus==='In progress'? 'In Progress' : userTicket.currentStatus}}</label>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div *ngIf="loader" style="margin-top: 2%">
+                      <!-- <div class="jumping-dots-loader " style="margin-left: auto; margin-right: auto ;margin-top: 5%;">
+  <span></span>
+  <span></span>
+  <span></span>
+</div> -->
+                      <div class="row">
+                        <div class="col-sm-12" style="text-align:center;">
+                          <img src="assets/images/Loader.gif" class="text-center">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div *ngIf="yourtaksListLength >5" class="email-filters-right">
+                      <p-paginator [rows]="pageSize" [totalRecords]="yourtaksListLength"  [first]='second' (onPageChange)="yourTaskDocDetails($event)" styleClass="ui-paginator"
+                        class="pull-right mt-4"></p-paginator>
+                    </div>
+                    <!-- no tickets found div -->
+                    <div *ngIf="noTicketsDiv === true">
+                      <div class="row mt-3" style="margin-top:50px;">
+                        <div class="col-sm-12" style="text-align:center;">
+                          <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 mt-3">
+                          <h2 style="text-align:center;">Oops, no tickets found!</h2>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- no tickets found div -->
+                  </div>
+                </div>
+                <!-- your tickets ending panel -->
+
+                <!-- solved tickets starting panel -->
+                <div [ngClass]="showSolved ? 'tab-pane fade show active' : 'tab-pane fade'" id="solved" role="tabpanel" aria-labelledby="tab-6-2">
+                  <div class="table" style="border: 1px solid #EEEEEE;border-radius: 6px;">
+                    <table class="table">
+                      <tbody style="text-align:center;">
+                        <tr>
+                          <th class="text-primary" style="text-align:left;padding-left:47px;">
+                            <strong>Ticket from</strong>
+                          </th>
+                          <th class="text-primary" style="text-align: left;padding-left: 29px;">
+                            <strong>Title</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Raised on</strong>
+                          </th>
+                          <th class="text-primary" style="text-align:center;padding-left:47px;">
+                            <strong>Closed by</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Closed on</strong>
+                          </th>
+                          <th class="text-primary">
+                            <strong>Status</strong>
+                          </th>
+                        </tr>
+                        <tr class="row-helight" style="height: 80px;" *ngFor="let userTicket of resolvedTasksObject">
+                          <td class="remove-helight" style="cursor: pointer;" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                  alt="profile image" data-toggle="tooltip" data-placement="bottom" title="{{userTicket.createdByName}}">
+                              </div>
+                              <div class="ml-3" style="text-align: left;width:135px;">
+                                <p class="mb-2" style="line-height: 1.2rem;">{{userTicket.createdByName}}</p>
+                                <small class="text-muted">{{userTicket.createdByDepartment}}</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" class="common" class="remove-helight" style="cursor: pointer; text-align:left;">
+                            <a class="ttletxt common" style="color:#232527;text-decoration:none;"data-toggle="tooltip" data-placement="bottom" title="{{userTicket.ticketTitle}}">{{userTicket.ticketTitle}}</a>
+                            <br>
+                            <div class="mt-2">
+                              <small class="badge2 badge-primary">
+                                {{userTicket.trackingId}}</small>
+                            </div>
+                          </td>
+                          <td [routerLink]="['/admin/ticket']" style="cursor: pointer;" (click)="sendingDataToAgent(userTicket)" class="text-primary remove-helight">{{userTicket.createdDate | date }}</td>
+                          <td>
+                            <div *ngIf="userTicket.closedBy === 'Automatic' || userTicket.solvedBy != '' ">{{userTicket.solvedBy}}</div>
+                            <div *ngIf="userTicket.solvedBy === '' ">{{userTicket.closedBy}}</div>
+                            <div *ngIf="userTicket.currentStatus === 'Cancelled' ">{{userTicket.modifiedBy}}</div>
+                          </td>
+                          <td [routerLink]="['/admin/ticket']" style="cursor: pointer;" (click)="sendingDataToAgent(userTicket)" class="text-primary remove-helight">{{userTicket.closedDate === '' || userTicket.closedDate === null ? '--' : userTicket.closedDate
+                            | date }}</td>
+                            
+                          <td>
+                            <label [ngClass]="ngClassForIcons(userTicket.currentStatus)">{{userTicket.currentStatus==='In progress'? 'In Progress' : userTicket.currentStatus}}</label>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div *ngIf="loader" style="margin-top: 2%">
+                      <div class="row">
+                        <div class="col-sm-12" style="text-align:center;">
+                          <img src="assets/images/Loader.gif" class="text-center">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div *ngIf="solvedTicketsLength > 5" class="email-filters-right">
+                      <p-paginator [rows]="pageSize" [totalRecords]="solvedTicketsLength" [first]="first" (onPageChange)="solvedDocDetails($event)" styleClass="ui-paginator"
+                        class="pull-right mt-4"></p-paginator>
+                    </div>
+
+                    <!-- no tickets found div -->
+                    <div *ngIf="noTicketsDiv === true">
+                      <div class="row mt-3" style="margin-top:50px;">
+                        <div class="col-sm-12" style="text-align:center;">
+                          <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 mt-3">
+                          <h2 style="text-align:center;">Oops, no tickets found!</h2>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- no tickets found div -->
+                  </div>
+                </div>
+                <!-- solved tickets starting panel -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+
+
+
+
+<!-- conformation for changing category  popup -->
+<div class="modal fade" id="exampleModal-30" style="margin-top:14%" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true ">
+  <div class="modal-dialog modal-md" role="document" style="width:70%;">
+    <div class="modal-content">
+
+      <div class="modal-body text-center">
+        <h4 class="text-success">
+          <strong style="color:black"> Do you want to change the category of ticket?</strong>
+        </h4>
+        <button class="btn btn-primary mt-2 mr-2" data-dismiss="modal" (click)="changeCateSubmit()">Yes <i *ngIf="block" class="fa fa-spinner fa-spin "></i></button>
+        <button class="btn btn-danger mt-2" data-dismiss="modal" (click)="changeCateToDefault()">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end -->
+
+<!--assign ticket model-->
+<div class="modal fade" id="exampleModal-100" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document" style="margin-top:18%;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div style="text-align:center">
+          <i class="fa fa-check-circle text-success" style="font-size:4rem"></i>
+        </div>
+        <h5 class="text-center text-dark mt-3">
+          <strong>Ticket has been assign successfully
+          </strong>
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+<!--assign ticket model  and moved to assigned tab-->

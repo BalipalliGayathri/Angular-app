@@ -1,0 +1,183 @@
+body{
+  font-family: 'mont Montserrat' important;
+  }
+      .auth .login-half-bg {
+      
+    background-color:#ef4048 !important;
+    
+  
+  }
+
+
+  .text{color:#ffffff;
+  padding: 0px 6px;
+  font-size:22px !important;
+  margin-top:12%;
+  }
+  .bg{
+      
+    background-image:url("/assets/images/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    background-size: cover;
+  }
+  ::placeholder
+  {
+   color:#b7b2b3 !important;  
+   font-size:15px;
+  }
+  .bgclr{background-color: rgba(0, 172, 231, 0.5);width:360px;}
+  .lght{}
+  
+  .lgrght
+  {
+    padding: 0px;
+    background-color:#363636;
+    width:360px;
+  }
+  .copy-rights{
+  margin-bottom:4%;
+    z-index: 1;
+    margin-left: 4%;
+    color:#aeaeae;
+    text-decoration:none!important;
+    text-align:center;
+  }
+  .copy-rights:hover{
+    color:#ffffff;
+  }
+  .auth .auth-form-light {
+      background: #232527;
+      color: #ffffff;
+  }
+  .mdi-lock, .mdi-account
+  {
+   color:#8c8c8c; 
+  }
+  .btn-primary:hover
+  {
+   background-color:#2368a0;
+   border-color:#2368a0;
+  }
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+  }
+  .icheck-square label
+  {
+    font-size:11px;
+  }
+  .icheck-helper
+{
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  display: block;
+  width: 140%;
+  height: 140%;
+  margin: 0px;
+  padding: 0px;
+  background: rgb(255, 255, 255);
+  border: 0px;
+  opacity: 0;
+}
+.icheckbox_square-blue, .iradio_square-blue {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 172, 231, 0.5) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-paginator-navigation-next .mat-icon-button
+          {
+            margin-top:5%
+           
+          }
+
+.auth[_ngcontent-c1] form[_ngcontent-c1] .form-group[_ngcontent-c1] i[_ngcontent-c1] {
+  top: calc((100% - 27px) / 2) !important;
+}
+.copy-rights[_ngcontent-c1]{
+  margin-top: 0px !important;
+}
+@media screen and (max-width: 774px) and (min-width: 200px) {
+.bgclr{
+display:none !important;
+}
+.lgrght
+{
+  margin-left:auto;
+  margin-right:auto;
+}
+}
+@media screen and (max-width: 1200px) and (min-width: 990px) {
+  .welcome-text{
+ font-size:15px !important;
+  }
+  
+  }
+  @media screen and (max-width: 990px) and (min-width: 950px) {
+    .login{
+      margin-left:12%;
+    }
+    }
+    @media screen and (max-width: 950px) and (min-width: 900px) {
+      .login{
+        margin-left:8%;
+      }
+      }
+      @media screen and (max-width: 900px) and (min-width: 850px) {
+        .login{
+          margin-left:5%;
+        }
+        }
+        @media screen and (max-width: 849px) and (min-width: 800px) {
+          .login{
+            margin-left:3%;
+          }
+          }
+          
+          @keyframes spinner {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -6px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border-top: 2px solid#ffffff;
+  border-right: 2px solid transparent;
+  animation: spinner .6s linear infinite;
+}
+
+.warning-message
+{
+text-align:center;
+color:#ef4048 !important;
+font-size:20px;
+
+}
+
+.wrong-message
+{
+text-align:center;
+color:#00aae7;
+font-size:15px;
+}
+

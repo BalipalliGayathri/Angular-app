@@ -1,0 +1,46 @@
+body{
+    font-family: "Montserrat", sans-serif important;
+  }
+  
+  
+  .breadcrumb {
+    border: none !important;
+    padding: 0rem;
+    margin-top: -7px !important;
+    background-color:#232527;
+    }
+    #header
+    {
+    padding: 0rem 1.81rem;
+    
+    padding-top: 2%;
+    }
+  
+  .border-bottom1
+  {
+   border-bottom:1px solid #e1e1e1; 
+  }
+  .pending
+  {
+    background-color:#e1e1e1 !important;
+  }
+  .preview-item:hover
+  {
+    cursor:pointer;
+  }
+  .read
+  {
+    background-color:transparent;
+  }
+  .unread
+  {
+    background-color:#eeeeee;
+  }
+  .form-check-input {
+    
+    margin-left: -0.25rem !important;
+}
+
+.row-helight:hover{
+  background-color: #f1f1f1 !important;
+}

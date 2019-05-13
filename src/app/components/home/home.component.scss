@@ -1,0 +1,79 @@
+.nav-item.active{
+    background-color:#e3e3e3;
+    color: white;
+    }
+    .sidebar .nav .nav-item.nav-profile .nav-link{padding:14px 14px 17px 14px;}
+    .sidebar .nav .nav-item.nav-profile .profile-name .name {font-size: 16px;}
+    .sidebar .nav .nav-item.nav-profile .profile-name .designation {font-size: 10px;}
+    .profile{height:40px !important;width:40px !important;}
+    .sidetxt{font-size: 15px !important;color: #232527 !important;}
+    .iconcolr{color:#232527 !important;}
+    .sidebar{background-color: #FFFFFF !important;}
+    .prfletxt{color: #232527 !important;}
+    .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-category):not(.nav-profile) > .nav-link {
+    background: #E3E3E3;
+    color: #000; }
+    .sidebar .nav .nav-item.nav-profile
+    {
+    border:none !important; 
+    }
+    .sidebar-dark .sidebar .nav .nav-item.nav-profile
+    {
+    border:none !important; 
+    }
+    .nav-item
+    {
+    border:none !important; 
+    }
+    .footer a
+    {
+    color:#232527; 
+    }
+    .breadcrumb {
+    border: none !important;
+    padding: 0rem;
+    margin-top: -7px !important;
+    background-color:#232527;
+    }
+    #header
+    {
+    padding: 0rem 1.81rem;
+    
+    padding-top: 2%;
+    }
+    .navbar.navbar-success .navbar-menu-wrapper .navbar-nav .nav-item .nav-link.count-indicator .count {
+    border-color: #00AAE7;
+    }
+    .chartjs-render-monitor
+    { 
+    width:522px;
+    height:270px !important;
+    margin-top:28px; 
+    }
+    .fa-plus:hover
+    {
+    font-size:17px; 
+    cursor:pointer;
+    }
+    .navbar .navbar-brand-wrapper
+    {
+    background-color:#232527; 
+    }
+    .fa-sign-out {
+    font-size: 19px;
+    }
+  
+  //   @media screen and (max-width: 980px) and (min-width: 260px) {
+  //   .sidebar{
+  //       right:0;
+  //   }
+  // .navbar .navbar-menu-wrapper .navbar-toggler:not(.navbar-toggler-right)  {
+  //     display: none;;
+  //   }
+  //   #menu1
+  //   {
+  //     display:inline !important;
+  //   }
+  // }
+  
+  

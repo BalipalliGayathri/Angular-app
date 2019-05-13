@@ -1,0 +1,200 @@
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="content-wrapper d-flex align-items-center auth bg">
+      <div class="row w-100 login">
+        <div class="col-lg-7 mx-auto">
+          <div class="row">
+            <div class="col-lg-6 g d-flex flex-row bgclr">
+              <ul class="text welcome-text" style="margin-left: 30px;font-size:1.5rem;text-align:right;float:right;text-align:right;font-weight:light;list-style-type: none;">
+                <br><br><br>
+                <li>Welcome to</li>
+                <li style="font-weight:900;">help.miraclesoft.com</li>
+                <li>where everything is for <span style="font-weight:900;">you!</span></li>
+                
+              </ul>
+              <footer class="footer pull-down" style="background-color:transparent;border:none;position:absolute;bottom:11px;right:-2%;">
+                <div class="container-fluid clearfix">
+                  <span class=" pull-right d-block text-sm-left d-sm-inline-block text-secondary" style="text-decoration:none;font-size:0.8rem;margin-right: 8px important;">Built for
+                    <font color="#232527" style="font-weight:bold;">Miracle&nbsp;</font>by Miracle</span>
+                </div>
+              </footer>
+            </div>
+            <div class="col-lg-6 lgrght">
+              <div class="auth-form text-left p-3 lght">
+                <img src="assets/images/miracle-logo-White-01.svg" class="mt-5 center" style="height:60px;">
+                <h4 class="font-weight-light text-center text-secondary mt-4">Login to your account</h4>
+                <form class="" #frm="ngForm" action="#" novalidate="">
+
+                  <div class="form-group" style="margin-top:10%;">
+
+                    <input type="text" class="form-control" [(ngModel)]="formudata.uname" name="uname" id="exampleInputEmail1" placeholder="Username"
+                      #Uname="ngModel" required style="border-bottom:1px solid #8c8c8c;color:#b7b2b3;font-size:15px;padding-left:2%;">
+                    <i class="mdi mdi-account" style="font-size: 17px;"></i>
+                    <div *ngIf="usererror || Uname.touched">
+                      <div id="error" *ngIf="Uname.errors?.required">
+                        <span class="pull-right"> Username is required!</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="margin-top:10%;margin-bottom:13%;">
+
+                    <input type="password" class="form-control" [(ngModel)]="formudata.password" name="password" id="exampleInputPassword1" placeholder="Password"
+                      #password="ngModel" required style="border-bottom:1px solid #8c8c8c;color:#b7b2b3;font-size:15px;padding-left:2%;">
+                    <i class="mdi mdi-lock" style="font-size: 17px;"></i>
+                    <div *ngIf="passworderror || password.touched">
+                      <div id="error" *ngIf="password.errors?.required">
+                        <span> Password is required!</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group login-submit">
+                    <button id="disableMe" [disabled]="disabled" data-dismiss="modal" type="submit" style="cursor: pointer;" (click)="login()"
+                      class="btn btn-lg btn-primary btn-block">
+                      <span>Login</span>
+                      <i *ngIf="spinner" class="spinner"></i>
+                    </button>
+                  </div>
+                  <div style="height:15px;">
+                    <div *ngIf="waring" class="warning-message">
+                      <span style="display:inline-flex;">
+                        <i class="fa fa-warning mr-1"></i>
+                        <p style="font-size:11px;">Please enter valid Hubble credentials</p>
+                      </span>
+                    </div>
+                    <div *ngIf="waring1" class="wrong-message">
+                      <span style="display:inline-flex;">
+                        <i class="fa fa-warning mr-1"></i>
+                        <p style="font-size:11px;">Some thing went wrong</p>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form">
+                    <div class="row" style="color:#ffffff;font-size:10px;margin-top:5%;font-size:10px;">
+                      <div class="col-sm-6">
+                        <div class="icheck-square">
+
+                          <!-- <mat-checkbox>Check me!</mat-checkbox> -->
+
+
+                          <!-- <input tabindex="5" (click)="remeberFunction()" type="checkbox" id="square-checkbox-1"> -->
+                          <!-- <label for="square-checkbox-1">Remember me</label> -->
+                        </div>
+                      </div>
+                      <!-- <div class="col-sm-6" style="color:#ffffff;font-size:11px;">
+                        <label style="text-align:right;float:right;">Forgot Password ?</label>
+                      </div> -->
+                    </div>
+                  </div>
+                </form>
+                <br>
+                <div class="copy-rights">
+                  <p style="color:#aeaeae;font-size:0.8rem;">© {{fullYear}} Miracle Software Systems, Inc.</p>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content-wrapper ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<style>
+  #error {
+    margin-top: 6px;
+    margin-left: 0px;
+    margin-bottom: 0;
+    right: 0px;
+    padding: 3px 5px;
+    position: absolute;
+    background-color: #232527;
+    color: #FFFFFF !important;
+    font-size: 10px;
+  }
+
+  #error:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    content: '';
+    z-index: 2;
+    border-bottom: 7px solid #232527;
+    -moz-transform: scale(0.9999);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+  }
+
+
+
+  .dot-opacity-loader span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #FFF;
+    margin: -41px 9px;
+    opacity: 0;
+  }
+</style>
+<style>
+  #alertbox {
+    display: none;
+  }
+
+  /* #spinner {
+      display: none;
+    } */
+
+  .buttonload {
+    background-color: #4CAF50;
+    /* Green background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px/* Set a font size */
+  }
+
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 1s linear infinite;
+    /* Safari */
+    animation: spin 1s linear infinite;
+  }
+
+  /* Safari */
+
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

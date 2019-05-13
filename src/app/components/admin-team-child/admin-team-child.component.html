@@ -1,0 +1,387 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="card" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-9">
+            <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff;">Agent</h4>
+
+          </div>
+          <div class="col-sm-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb  pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/dashboard']" style="color:#00aae7">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/team']" style="color:#00aae7">Team</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Agent</li>
+              </ol>
+            </nav>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <br>
+    <!-- main panel  -->
+    <div *ngIf="showLoader" class="row user-profile">
+      <div class="col-lg-3 side-left d-flex align-items-stretch">
+        <div class="row">
+          <div class="col-12 grid-margin stretch-card" style="height:370px;">
+            <div class="card">
+              <div class="card-body avatar">
+                <h4 class="card-title text-center">Agent Info</h4>
+                <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{profileLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                  alt="" data-toggle="tooltip" data-placement="bottom" title="{{userDetails.Name}}">
+                <p class="name">{{userDetails.Name}}</p>
+                <p class="designation">{{userDetails.Designation}}</p>
+              </div>
+              <div class="overview" style="margin-top:-8%;">
+                <ul class="achivements" style="height:100px;">
+                  <li style="background-color:#ef4048">
+                    <p class="text-white" >{{userDetails.count[0].Active}}</p>
+                    <p class="text-white">Opened</p>
+                  </li>
+                  <li style="background-color:#0d416b">
+                    <p class="text-white" >{{userDetails.count[0].Escalated}}</p>
+                    <p class="text-white">Escalated</p>
+                  </li>
+                  <li style="background-color:#232527">
+                    <p class="text-white" >{{userDetails.count[0].Closed}}</p>
+                    <p class="text-white">Closed</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 stretch-card" style="height:370px;">
+            <div class="card">
+              <div class="card-body overview">
+                <h4 class="card-title text-center">Agent Details</h4>
+                <div class="d-flex bg-light flex-column text-center" style="height:150px">
+
+                  <div class="p-2" style="border-bottom:1px solid #eeeeee;display: grid;">
+                    <i class="fa fa-phone" style="font-size:30px;color:#ef4048;"></i>
+                    <span style="font-size: 10px;color:#ef4048;margin-top: 3%;">&nbsp;&nbsp;
+                      <strong>{{userDetails.WorkPhoneNo}}</strong>
+                    </span>
+                  </div>
+
+                  <div class="p-2  mt-2" style="border-bottom:1px solid #eeeeee;display: grid;" >
+                    <i class="fa fa-envelope" style="font-size:30px;color:#232527"></i>
+                    <span style="font-size: 10px;color:#232527;margin-top: 3%;">
+                      <strong>{{userDetails.LoginId}}@miraclesoft.com</strong>
+                      <i class="fa fa-copy copyy" style="cursor: pointer;color:#b7b2b3;"data-toggle="tooltip" data-placement="bottom" title="Copy To Clipboard" (click) = "copyToClipboard(email,$event)"></i>
+                    </span>
+                  </div>
+
+
+                  <div class="p-2  mt-2" style="border-bottom:1px solid #eeeeee;display: grid;">
+                    <i class="fa fa-comments" style="font-size:30px;color:#0d416b"></i>
+                    <span style="font-size: 10px;color:#0d416b;margin-top: 3%;">
+                      <strong>
+                        <a href="https://talk.miraclesoft.com/direct/{{userDetails.LoginId}} " target="_blank" style="text-decoration: none;color:#0d416b;"
+                        data-toggle="tooltip" data-placement="bottom" title="{{userDetails.Name}}">
+                        mtalk/{{userDetails.LoginId}}</a>
+                      </strong>
+                    </span>
+                  </div>
+                  <div class="p-2 mt-2" style="display: grid;">
+                    <i class="fa fa-mobile ml-1" style="font-size:40px;color:#2368a0"></i>
+                    <span style="font-size: 10px;color:#2368a0;margin-top: 3%;">
+                      <strong>{{userDetails.PhoneNumber}}</strong>
+                    </span>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-9 side-right stretch-card">
+        <div class="card ticket-view-card">
+          <div class="card-body" style="margin-bottom:-7px;">
+            <!-- serviceTime Rating starting -->
+            <div class="row text-center" style="height:33px;">
+              <div class="col-md-4">
+                <div class="bg-blue text-white">
+                  <div class="d-flex justify-content-center">
+                    <!-- Rating Stars Box -->
+                    <div class="stars" style="font-size: 11px;display:inline-flex;">
+                      <p class="text-light mt-2 ml-1">
+                        <strong>Rating &nbsp;:&nbsp;</strong>
+                      </p>
+                      <raja-rating fullIcon="★" emptyIcon="☆" [(ngModel)]="rating" [readonly]="true" [titles]="['Very Poor', 'Poor', 'Good', 'Very Good', 'Excellent']"></raja-rating>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="bg-blue text-white">
+                  <p style="padding-top:3%" class="blue-cards">
+                    <strong>
+                      Service Time &nbsp;: &nbsp;&nbsp;{{serviceTime}}</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="bg-blue text-white">
+                  <p style="padding-top:3%" class="blue-cards">
+
+                    <strong>Total Tickets &nbsp;:&nbsp;&nbsp;{{totaLTicketCount}}</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <br>
+            <!-- serviceTime Rating ending -->
+            <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+
+              <h4 class="card-title mb-0" style="text-transform:none;">Ticket activity</h4>
+              <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="info-tab" data-toggle="tab" href="#active" (click)="retriveDocs('Active')" role="tab" aria-controls="info"
+                    aria-expanded="true">Open</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="avatar-tab" data-toggle="tab" href="#escalated" (click)="retriveDocs('Escalated')" role="tab" aria-controls="avatar">Escalated</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="security-tab" data-toggle="tab" href="#closed" (click)="retriveDocs('Closed')" role="tab" aria-controls="security">Closed</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="wrapper">
+              <hr>
+              <div class="row">
+                <div class=" col-sm-12 add-items d-flex">
+                  <input type="text" #myInput class="form-control todo-list-input" [(ngModel)]="name" (input)="filterItem(myInput.value)" placeholder="Ticket ID, Title, Keywords or Status"
+                    style="height:44px;">
+                  <button data-toggle="tooltip" data-placement="top" title="Search a Ticket" class="add btn btn-primary font-weight-bold todo-list-add-btn"
+                    id="add-task">Search</button>
+                </div>
+              </div>
+              <div class="tab-content" id="myTabContent" style="padding:0px !important;">
+                <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="info">
+
+                  <table class="table ">
+                    <tbody style="text-align:left;">
+                      <tr>
+                        <th class="text-primary" style="left: 6%;position: absolute;">
+                          <strong>Title</strong>
+                        </th>
+
+                        <th class="text-primary" style="text-align: right;">
+                          <strong>Raised on</strong>
+                        </th>
+
+
+                      </tr>
+                      <tr *ngFor="let userTicket of ticketsList">
+                        <td style="text-align: left; line-height: 1.5; width: 500px;">
+
+                          <div class="row">
+                            <div class="col-sm-1" style="top: 0;margin: auto;bottom: 0;">
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom"
+                                title="{{userTicket.createdBy}}">
+                            </div>
+                            <div class="col-sm-10">
+                              <div>
+                                <a [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)" class="ttletxt"
+                                  style="color:#232527;text-decoration:none;">{{userTicket.ticketTitle}}</a>
+                              </div>
+                              <div style="display:inline-flex">
+
+                                <div class="mt-1">
+                                  <small class=" badge badge-primary">
+                                    ID : {{userTicket.trackingId}}</small>
+                                </div>
+                                <!-- <div class="mt-2 ml-2">
+                                        <small  class="text-muted text-primary">
+                                          {{userTicket.createdDate | date:' d-MMM '}} at {{userTicket.createdDate | date:'hh-mm a'}}
+                                        </small></div> -->
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                         
+                        </td>
+                        <td style="text-align:right">{{userTicket.createdDate | date}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- tab content ends -->
+                <div class="tab-pane fade" id="escalated" role="tabpanel" aria-labelledby="avatar-tab">
+                  <table class="table ">
+                    <tbody style="text-align:left;">
+
+                      <tr>
+                        <th class="text-primary">
+                          <strong>Title</strong>
+                        </th>
+
+                        <th class="text-primary">
+                          <strong>Raised on</strong>
+                        </th>
+                        <th class="text-primary">
+                          <strong>Escalated on</strong>
+                        </th>
+
+                      </tr>
+
+                      <tr *ngFor="let userTicket of ticketsList">
+                        <td style="text-align: left; line-height: 1.5; width: 415px;">
+
+                          <div class="row">
+                            <div class="col-sm-1" style="top: 0;margin: auto;bottom: 0;">
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom"
+                                title="{{userTicket.createdBy}}">
+                            </div>
+                            <div class="col-sm-10">
+                              <a class="ttletxt" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">
+                                <p class="mb-1">{{userTicket.ticketTitle}}</p>
+
+                                <small class=" bdge-txt badge badge-primary">
+                                  ID : {{userTicket.trackingId}}</small>
+                              </a>
+
+                            </div>
+                          </div>
+
+
+                        </td>
+
+                        <td>{{userTicket.createdDate | date}}</td>
+                        <td>{{userTicket.escalatedDate | date}}</td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="security-tab">
+                  <table class="table ">
+                    <tbody style="text-align:left;">
+                      <tr>
+                        <th class="text-primary">
+                          <strong>Title</strong>
+                        </th>
+
+                        <th class="text-primary">
+                          <strong>Raised on</strong>
+                        </th>
+                        <th class="text-primary" style="text-align:left;">
+                          <strong>Closed on</strong>
+                        </th>
+
+                      </tr>
+                      <tr *ngFor="let userTicket of ticketsList">
+                        <td style="text-align: left; line-height: 1.5;width: 415px;">
+                          <div class="row">
+                            <div class="col-sm-1" style="top: 0;margin: auto;bottom: 0;">
+                              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userTicket.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                                alt="profile image" style="height: 45px; width: 45px;" data-toggle="tooltip" data-placement="bottom"
+                                title="{{userTicket.createdBy}}">
+                            </div>
+                            <div class="col-sm-10">
+                              <a class="ttletxt" [routerLink]="['/admin/ticket']" (click)="sendingDataToAgent(userTicket)">
+                                <p class="mb-1">{{userTicket.ticketTitle}}</p>
+
+                                <small class=" bdge-txt badge badge-primary">
+                                  ID : {{userTicket.trackingId}}</small>
+                              </a>
+
+                            </div>
+                          </div>
+
+
+
+                        </td>
+
+                        <td>{{userTicket.createdDate | date}}</td>
+                        <td>
+                        <span *ngIf="userTicket.closedDate!=null">
+                          {{userTicket.closedDate | date}}
+                        </span>
+                        <span *ngIf="userTicket.closedDate === null" style="text-align: center">
+                            <!-- {{userTicket.closedDate | date}} -->
+                            --
+                          </span>
+                        </td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+            <!-- no tickets found div -->
+            <div *ngIf="noTicketsDiv === true">
+              <div class="row mt-3">
+                <div class="col-sm-12" style="text-align:center;">
+                  <i class="fa fa-ticket icon-lg" style=" font-size: 4.5rem;"></i>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12 mt-3">
+                  <h2 style="text-align:center;">Oops, no tickets found !</h2>
+                </div>
+              </div>
+            </div>
+              <!-- no tickets found div -->
+              <br>
+              <div *ngIf="length > 5 && paginationShow" class="email-filters-right">
+
+                <p-paginator [rows]="pageSize" [totalRecords]="length" [first]="first" (onPageChange)="getDocumentDetails($event)" styleClass="ui-paginator"
+                  class="pull-right  mt-4" ></p-paginator>
+              </div> 
+              <!-- <div *ngIf="paginationShow" class="email-filters-right" >
+                  <p-paginator [rows]="pageSize" [totalRecords]="length" (onPageChange)="getDocumentDetails($event)" styleClass="ui-paginator"
+                    class="pull-right mt-4"></p-paginator>
+    
+                </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- loader panel -->
+
+    <div *ngIf="!showLoader" style="margin-top:170px !important;">
+
+      <div style="text-align:center;">
+        <img src="assets/images/Loader.gif" class="text-center">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- content-wrapper ends -->
+  <!-- partial:../../partials/_footer.html -->
+
+  <!-- partial -->
+</div>

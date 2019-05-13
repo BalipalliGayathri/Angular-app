@@ -1,0 +1,734 @@
+<div *ngIf="mainLoader" class="main-panel">
+  <div class="content-wrapper">
+
+    <div class="card mb-2 mt-1" style="background-color: #232527;display: block;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-9">
+            <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff;">Dashboard</h4>
+          </div>
+          <div class="col-sm-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb  pull-right">
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/dashboard']" style="color: #00aae7;">Home</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+              </ol>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-3 grid-margin stretch-card">
+        <div class="card bg-card-top" style="height:339px;">
+          <div class="card-body bg-text-top">
+            <div class="d-flex justify-content-center">
+              <div class="add-items d-flex " style="margin-top:-3%;">
+
+                <button type="button" class="btn pull-right" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="true"
+                  style="background: none;border: none;color: #ffffff;display:inline-flex;margin-top:6%;">
+                  <h4 class="card-title text-white text-right align-self-center Top-performers " style="margin-left:-5px;">Top performers </h4>
+                  <i class="fa fa-caret-down pull-right mt-1 ml-2"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list " aria-labelledby="notificationDropdown" style="height:80px !important;margin-top:-7%;">
+
+                  <ul>
+                   
+
+                    <li  style="display:-webkit-box;top:-10px;" (click)="ticketTopCloseData()" id="category">
+                      <p>
+                        <strong>Tickets Closed</strong>
+                      </p>
+                      <i [ngClass]="ngClassForIcons('Tickets Closed')" style="position: absolute;right: 5%;margin-top: 3%;"></i>
+                    </li>
+                    <li  style="display:-webkit-box;top:-10px;" (click)="getAllTopServiceDocs()" id="category">
+                      <p>
+                        <strong>Service Time</strong>
+                      </p>
+                      <i [ngClass]="ngClassForIcons('Service Time')" style="position: absolute;right: 5%;margin-top: 3%;"></i>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+            <table style="border-collapse: separate !important;border-spacing: 0 1em !important;left: 0;right: 0;margin: auto;    margin-top: -5%;">
+              <tr *ngIf="showDiv === 'serviceTime'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{appsBestPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;" 
+                    data-toggle="tooltip" data-placement="bottom" title="{{appsBestPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(appsBestPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime === 1">Service time - {{AppsBasedOnClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime != 1">Service time - {{AppsBasedOnClosedServicetime}} h</small>
+                </td>
+              </tr>
+              <tr *ngIf="showDiv === 'serviceTime'" class="mt-3">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{hrBestPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{hrBestPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(hrBestPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="hrBasedOnBestClosedServicetime === 1">Service time - {{hrBasedOnBestClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="hrBasedOnBestClosedServicetime != 1">Service time - {{hrBasedOnBestClosedServicetime}} h</small>
+                </td>
+              </tr>
+              
+              <tr *ngIf="showDiv === 'serviceTime'" class="mt-3">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{itBestPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{itBestPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(itBestPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="itBasedOnBestClosedServicetime === 1">Service time - {{itBasedOnBestClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="itBasedOnBestClosedServicetime != 1">Service time - {{itBasedOnBestClosedServicetime}} h</small>
+                </td>
+              </tr>
+              <tr *ngIf="showDiv === 'closeTicket'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{appsBestPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{appsBestPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(appsBestPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed - {{AppsBasedOnClosedServicetime}} </small>
+
+                </td>
+              </tr>
+              <tr *ngIf="showDiv === 'closeTicket'" class="mt-3">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{hrBestPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{hrBestPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(hrBestPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed - {{hrBasedOnBestClosedServicetime}} </small>
+
+                </td>
+              </tr>
+              <tr *ngIf="showDiv === 'closeTicket'" class="mt-3">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{itBestPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{itBestPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(itBestPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed - {{itBasedOnBestClosedServicetime}} </small>
+
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 grid-margin stretch-card">
+        <div class="card bg-card-low" style="height:339px;">
+
+          <div class="card-body bg-text-low">
+         
+            <div class="d-flex justify-content-center">
+              <div class="add-items d-flex ">
+
+                <button type="button" class="btn pull-right" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="true"
+                  style="background: none;border: none;color: #ffffff;display:inline-flex;margin-top:3%;">
+                  <h4 class="card-title text-white text-right align-self-center Top-performers" style="margin-left:-5px;">Low performers </h4>
+                  <i class="fa fa-caret-down pull-right mt-1 ml-2"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="height:80px !important;margin-top:-7%;">
+
+                  <ul>                   
+                    <li style="display:-webkit-box;top:-10px;" (click)="ticketLowCloseData()" id="category">
+                      <p>
+                        <strong>Tickets Closed</strong>                        
+                      </p>
+                      <i [ngClass]="ngClassForLowIcons('Tickets Closed')" style="position: absolute;right: 5%;margin-top: 3%;"></i>
+                    </li>
+                    <li  style="display:-webkit-box;top:-10px;" (click)="getAllLowServiceDocs()" id="category">
+                      <p>
+                        <strong>Service Time</strong>
+                      </p>
+                      <i [ngClass]="ngClassForLowIcons('Service Time')"  style="position: absolute;right: 5%;margin-top: 3%;"></i>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+
+            <table style="border-collapse: separate !important;border-spacing: 0 1em !important;left: 0;right: 0;margin: auto; margin-top: -5%;">
+              <tr *ngIf="showLowDiv === 'closeTicket'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{appsLowPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{appsLowPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(appsLowPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed - {{hrBasedOnLowClosedServicetime}} </small>
+
+                </td>
+              </tr>
+              <tr *ngIf="showLowDiv === 'closeTicket'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{hrLowPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{hrLowPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(hrLowPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed - {{hrBasedOnLowClosedServicetime}} </small>
+
+                </td>
+              </tr>
+              <tr *ngIf="showLowDiv === 'closeTicket'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{itLowPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{itLowPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(itLowPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3">Tickets Closed -{{itBasedOnLowClosedServicetime}} </small>
+
+                </td>
+              </tr>
+              <tr *ngIf="showLowDiv === 'serviceTime'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{appsLowPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{appsLowPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(appsLowPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnLowClosedServicetime === 1">Service time - {{AppsBasedOnLowClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnLowClosedServicetime != 1">Service time - {{AppsBasedOnLowClosedServicetime}} h</small>
+                </td>
+              </tr>
+              <tr *ngIf="showLowDiv === 'serviceTime'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{hrLowPLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{hrLowPLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(hrLowPLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime === 1">Service time - {{hrBasedOnLowClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime != 1">Service time - {{hrBasedOnLowClosedServicetime}} h</small>
+                </td>
+              </tr>
+              <tr *ngIf="showLowDiv === 'serviceTime'">
+                <td>
+                  <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{itLowPerformLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                    alt="profile image" style="border-radius:50%;height:40px;width:40px;"
+                    data-toggle="tooltip" data-placement="bottom" title="{{itLowPerformLoginId}}">
+                </td>
+                <td>
+                  <p class="text-white mb-1 ml-3" style=" font-size:1.05rem !important;text-align:left;">
+                    <strong>{{nameString(itLowPerformLoginId)}}</strong>
+                  </p>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime === 1">Service time - {{itBasedOnLowClosedServicetime}} h</small>
+                  <small class="text-white  ml-3" *ngIf="AppsBasedOnClosedServicetime != 1">Service time - {{itBasedOnLowClosedServicetime}} h</small>
+                </td>
+              </tr>
+             
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 grid-margin stretch-card" style="text-align:center;">
+        <div class="card bg-card-time" style="height:339px;">
+          <div class="card-body bg-text-time">
+            <h4 class="card-title mt-3 text-white">Avg Service Time</h4>
+            <br>
+            <div class="text-center avg-count1" style="margin-top:13%">
+              <h2 *ngIf="AvgServiceTimeCount === 1" style="font-size:2rem;">{{AvgServiceTimeCount}} h</h2>
+              <h2 *ngIf="AvgServiceTimeCount != 1 " style="font-size:2rem;">{{AvgServiceTimeCount}} h</h2>
+
+            </div>
+            <div class="avg-count2" style="margin-top:28%;">
+              <small class="text ml-3" style="display:ruby;font-weight:900;">Calculated from {{AvgServiceTimeByTick}} tickets</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-3 grid-margin stretch-card" style="text-align:center;">
+        <div class="card bg-card-tickets">
+          <div class="card-body bg-text-tickets">
+            <h4 class="card-title mt-3 text-white">Tickets</h4>
+            <br>
+            <div class="text-center open-count1" style="margin-top:-8%">
+              <div class="row">
+              <div class="col-sm-8" style="text-align:left"><p style="font-size:15px">Open :</p></div>
+              <div class="col-sm-4" style="text-align:right"><p style="font-size:15px">{{openticketDetsils.Opened}}</p></div>
+
+                  <div class="col-sm-8" style="text-align:left"><p style="font-size:15px">In progress :</p></div>
+                  <div class="col-sm-4" style="text-align:right"><p style="font-size:15px">{{openticketDetsils.Inprogress}}</p></div>
+
+                  <div class="col-sm-8" style="text-align:left"><p style="font-size:15px">Escalated :</p></div>
+                  <div class="col-sm-4" style="text-align:right"><p style="font-size:15px">{{openticketDetsils.Escalated}}</p></div>
+
+                  <div class="col-sm-8" style="text-align:left"><p style="font-size:15px">Resolved :</p></div>
+                  <div class="col-sm-4" style="text-align:right"><p style="font-size:15px">{{openticketDetsils.Solved}}</p></div>
+              </div>
+
+            </div>
+            <div class="open-count2" style="margin-top:4%">
+              <small class="text center " style="display:ruby;font-weight:900;">Updated {{openTicketUpdateTime}} ago</small>
+            </div>
+
+          </div>
+        </div>
+      </div> -->
+      <div class="col-md-3 grid-margin" style="text-align:center;">
+        <div class="row">
+          <div class="col-sm-6">
+          <div class="" style="background-color:#ab8ce4;color:#ffffff;">
+          <div class="card-body py-2 px-2 pt-5 pb-5">
+          <h5>Open</h5>
+          <h2 >{{openticketDetsils.Opened}}</h2>
+          </div> 
+          </div>
+          </div>
+          
+          
+          <div class="col-sm-6" >
+          <div class="" style="background-color:#ec6205;color:#ffffff;">
+          <div class="card-body py-2 px-2 pt-5 pb-5">
+          <h5>In-Progress</h5>
+          <h2>{{openticketDetsils.Inprogress}}</h2>
+          </div> 
+          </div>
+          </div>
+          </div>
+          <div class="row mt-4">
+          <div class="col-sm-6">
+          <div class="" style="background-color:#ef4048;color:#ffffff;">
+          <div class="card-body py-2 px-2 pt-5 pb-5">
+          <h5>Escalated</h5>
+          <h2 >{{openticketDetsils.Escalated}}</h2>
+          </div> 
+          </div>
+          </div>
+          
+          
+          <div class="col-sm-6" >
+          <div class="" style="background-color:#09b76b;color:#ffffff;">
+          <div class="card-body py-2 px-2 pt-5 pb-5">
+          <h5>Solved</h5>
+          <h2>{{openticketDetsils.Solved}}</h2>
+          </div> 
+          </div>
+          </div>
+          </div><br>
+      </div>
+
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card ">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="row d-flex justify-content-between align-items-center">
+
+              <div *ngIf="loder1 === true" id="overlay">
+                <div id="text">
+                  <div class="col-sm-12" style="text-align:center;">
+                    <img src="assets/images/Loader.gif" class="text-center">
+                  </div>
+                </div>
+              </div>
+              <div class="p-2">
+                <h4>
+                  <strong>Top tickets by sub-category</strong>
+                </h4>
+              </div>
+              <div class="p-2">
+                <!-- <p  style="text-align:center;margin-top:5px;"> <font  color="#00aae7" ><strong>From</strong></font> {{ startdate1 | date  }} <font  color="#00aae7"><strong>To</strong></font>  {{ enddate1 |date}}</p> -->
+              </div>
+              <div class="p-2 ml-auto">
+
+                <my-date-range-picker [(ngModel)]="mydate3" [options]="myDateRangePickerOptions" [placeholder]="placeholder" (dateRangeChanged)="onDateRangeChangedForTop($event)">
+                  <div class="mydrp" ng-reflect-ng-style="[object Object]"></div>
+                </my-date-range-picker>
+              </div>
+
+              <div class="p-2 pull-right">
+                <button class="btn btn-group btn-primary generate" (click)="genrateGraph1()" style="width:130px;text-align:center;padding-left:33px;">Generate</button>
+                <!-- <select class="form-control pull-right"   [ngClass]="{'agentSelect':highLightSelect2}" name="departmentValue" [(ngModel)]="departmentValue" (change)="departmentSelect($event)">
+                              <option value="" selected >Select Department</option>
+                              <option value="HR">HR</option>
+                              <option value="IT">IT</option>
+                              <option value="APPS">APPS</option>
+                              <!-- <option value="ALL">ALL</option> -->
+                <!-- </select> -->
+
+
+
+              </div>
+
+              <!-- no graphs found div -->
+              <div class="col-sm-12 ">
+
+
+                <div *ngIf="noGraphsFound1">
+                  <div class="row" style="margin-top:50px;">
+                    <div class="col-sm-12" style="text-align:center;">
+                      <i class="fa fa-line-chart" style=" font-size: 4.5rem;"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 mt-3">
+                    <h2 style="text-align:center;">Oops, no statistics found!</h2>
+                  </div>
+
+                </div>
+
+                <google-chart *ngIf="!noGraphsFound1" [data]="barchatForCategory"></google-chart>
+              </div>
+
+
+              <!-- no graphsfound div -->
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+
+      <div class="col-md-12 grid-margin stretch-card " style="margin-bottom:1%;">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div *ngIf="loader === true" id="overlay">
+                <div id="text">
+                  <div class="col-sm-12" style="text-align:center;">
+                    <img src="assets/images/Loader.gif" class="text-center">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12  mt-2" style="display:inline-flex;">
+                <h4 class="card-title" style="margin-left:-1%;">Statistics</h4>
+
+
+              </div>
+            </div>
+
+            <div class="form-group row d-flex justify-content-between">
+
+              <div class="p-2 flex-fill">
+
+                <my-date-range-picker [(ngModel)]="mydate" [options]="myDateRangePickerOptions" [placeholder]="placeholder" style="width: 160px;"
+                  (dateRangeChanged)="onDateRangeChanged($event)">
+                  <div class="mydrp" ng-reflect-ng-style="[object Object]"></div>
+                </my-date-range-picker>
+
+              </div>
+
+              <div class="p-2 flex-fill">
+                <select class="form-control" [ngClass]="{'agentSelect':highLightSelect2}" name="departmentValue" [(ngModel)]="departmentValue"
+                  style="width: 160px;" (change)="departmentSelect($event)">
+                  <option value="" selected>Select Categeory</option>
+                  <option value="APPS">APPS</option>
+                  <option value="HR">HR</option>
+                  <option value="IT">IT</option>
+
+                  <!-- <option value="ALL">ALL</option> -->
+                </select>
+              </div>
+              <div class="p-2 flex-fill" (click)="dropdownValidate($event)">
+                <select class="form-control" [ngClass]="{'agentSelect':highLightSelect3}" [disabled]="disabled" name="subcatValue1" style="width: 160px;"
+                  [(ngModel)]="subcatValue1" (change)="subSelect1($event)">
+                  <option value="" selected>Select</option>
+                  <option value="Location">By Location</option>
+                  <option value="Catageory">By Sub-catageory</option>
+                  <option value="Agent">By Agent</option>
+
+                </select>
+              </div>
+              <div class="p-2 flex-fill" *ngIf="subcatValue1 === 'Agent'  && departmentValue !==''">
+                <select name="compareMatrics" [ngClass]="{'agentSelect':highLightSelect}" style="width: 160px;" [(ngModel)]="compareMatrics"
+                  class="form-control" (change)="subSelect3($event)">
+                  <option value="" selected>Compare By </option>
+                  <option value="Average Service Time"> Average Service Time</option>
+                  <option value="Total Tickets">Total Tickets</option>
+                  <option value="Open Tickets">Open Tickets</option>
+                  <!-- <option [value]="location.Name" *ngFor="let location of agentValueObject ">{{location.Name}}</option> -->
+
+                </select>
+              </div>
+              <div class="p-2 flex-fill" *ngIf=" !(subcatValue1 === 'Agent' || subcatValue1 === 'Catageory' || subcatValue1 === 'Location') ">
+                <select name="subcatValue2" [ngClass]="{'agentSelect':highLightSelect1}" style="width: 160px;" [(ngModel)]="subcatValue2"
+                  class="form-control" (click)="dropdownValidate1($event)">
+                  <option value="" selected>Select</option>
+
+                </select>
+              </div>
+
+
+
+              <div class="p-2 flex-fill" *ngIf="subcatValue1 === 'Catageory'  && departmentValue !==''">
+                <select name="subcatValue2" [ngClass]="{'agentSelect':highLightSelect1}" style="width: 160px;" [(ngModel)]="subcatValue2"
+                  class="form-control" (change)="subSelect2($event)">
+                  <option value="" selected>Select</option>
+                  <option *ngFor="let subCatNames of subCategoryNames">{{subCatNames.subCategoryName}} </option>
+
+                </select>
+              </div>
+              <div class="p-2 flex-fill" *ngIf="subcatValue1 === 'Location'  && departmentValue !=='' ">
+                <select name="subcatValue2" [ngClass]="{'agentSelect':highLightSelect1}" style="width: 160px;" [(ngModel)]="subcatValue2"
+                  class="form-control" (change)="subSelect2($event)">
+                  <option value="" selected>Select</option>
+                  <option [value]="location.name" *ngFor="let location of locationObject ">{{location.name}}</option>
+                  <!-- <option [value]="location.name" *ngFor="let location of locationObject ">{{location.name}}</option> -->
+
+
+                </select>
+              </div>
+              <div class="p-2 flex-fill">
+                <div *ngIf="!(subcatValue1 === 'Agent' && departmentValue !=='')  ">
+
+                  <button class="btn btn-group btn-primary generate mr-1" style="width:130px;text-align:center;padding-left:33px;" (click)="genrateGraph()">Generate</button>
+                </div>
+                <div *ngIf="subcatValue1 === 'Agent' ">
+                  <!-- (conform1 == false && conform2 == false && conform3 == false && conform4 == false) || (conform1 == true && conform2 == false && conform3 == false && conform4 == false) || (conform1 == false && conform2 == true && conform3 == false && conform4 == false )  -->
+                  <button [disabled]=" compareAgentArray.length < 2  " class="btn btn-success mr-1" style="width:130px;padding-left:20px;line-height: 1.4 ;text-align:center;"
+                    (click)="genrateGraphForCompare()">Compare</button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group row d-flex justify-content-between">
+
+                  <div class="p-3">
+                    <!-- <input name="dsomr" type="text"> -->
+                    <!-- <select class="form-control" *ngIf="subcatValue1 === 'Agent'"  name="person1" [(ngModel)]="person1"  (change)="subSelect220($event)">
+                  <option value="" selected >Select</option>
+                  <option [value]="location.LoginId" *ngFor="let location of agentValueObject ">@{{location.LoginId}}</option>
+        
+                </select> -->
+                    <mat-form-field *ngIf="subcatValue1 === 'Agent' " class="example-full-width" floatLabel="never">
+
+                      <div [ngClass]="{'chips1':(person1 != ''), 'chips2': !( person1 != '') }">
+                        <!-- <img *ngIf = "subcatValue1 === 'Agent'  && person1 != ''"  class="example-option-img" aria-hidden src="http://www.miraclesoft.com/images/employee-profile-pics/{{p1image}}.png"
+                          style="height: 45px; width: 45px  -->
+                        <img *ngIf="subcatValue1 === 'Agent'  && person1 != ''" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{p1image}}.png"
+                          onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" height="25">&nbsp;&nbsp;
+                        <input matInput name="person1" [(ngModel)]="person1" maxlength="10" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                        <i style="margin-top:6%" *ngIf="subcatValue1 === 'Agent'  && person1 != ''" class="fa fa-times-circle cross" (click)="cancle1()"
+                          data-toggle="tooltip" data-placement="bottom" title="Cancel"></i>
+
+                      </div>
+                      <mat-placeholder class="placeholder ml-3"> Add to Compare</mat-placeholder>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected1($event)">
+                        <mat-option *ngFor="let state of filteredStates0 | async" [value]="state.LoginId">
+                          <img class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                            onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                            height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                          <span>{{state.LoginId}}</span>
+                          <!-- <small>Population: {{state.LoginId}}</small> -->
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div class="p-3 flex-fill">
+                    <!-- <select   *ngIf = "subcatValue1 === 'Agent' "   class="form-control"  (change)="subSelect221($event)">
+                    <option value="" selected >Select</option>
+                    <option [value]="location.LoginId" *ngFor="let location of agentValueObject ">@{{location.LoginId}}</option>
+           
+                  </select> -->
+
+                    <mat-form-field *ngIf="subcatValue1 === 'Agent' " class="example-full-width" floatLabel="never">
+
+                      <div [ngClass]="{'chips1':(person2 != ''), 'chips2': !( person2 != '') }">
+
+                        <img *ngIf="subcatValue1 === 'Agent'  && person2 != ''" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{p2image}}.png"
+                          onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" height="25">&nbsp;&nbsp;
+                        <input matInput name="person2" [(ngModel)]="person2" aria-label="State" maxlength="10" [matAutocomplete]="auto" [formControl]="stateCtrl1">
+                        <i style="margin-top:6%" *ngIf="subcatValue1 === 'Agent'  && person2 != ''" class="fa fa-times-circle cross" (click)="cancle2()"
+                          data-toggle="tooltip" data-placement="bottom" title="Cancel"></i>
+                      </div>
+
+
+                      <mat-placeholder class="placeholder  ml-3">Add to Compare</mat-placeholder>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected2($event)">
+                        <mat-option *ngFor="let state of filteredStates1 | async" [value]="state.LoginId">
+                          <img class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                            onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                            height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                          <span>{{state.LoginId}}</span>
+                          <!-- <small>Population: {{state.LoginId}}</small> -->
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div class="p-3 flex-fill">
+                    <!-- <select class="form-control"  *ngIf = " subcatValue1 === 'Agent'  " name="person3" [(ngModel)]="person3"  (change)="subSelect222($event)">
+                      <option value="" selected >Select</option>
+                      <option [value]="location.LoginId" *ngFor="let location of agentValueObject ">@{{location.LoginId}} </option>
+            
+                    </select> -->
+
+                    <mat-form-field *ngIf="subcatValue1 === 'Agent' " class="example-full-width" floatLabel="never">
+                      <div [ngClass]="{'chips1':(person3 != ''), 'chips2': !( person3 != '') }">
+                        <img *ngIf="subcatValue1 === 'Agent'  && person3 != ''" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{p3image}}.png"
+                          style="height: 45px; width: 45px;" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';">&nbsp;&nbsp;
+                        <input matInput name="person3" [(ngModel)]="person3" aria-label="State" maxlength="10" [matAutocomplete]="auto" [formControl]="stateCtrl2">
+                        <i style="margin-top:6%" *ngIf="subcatValue1 === 'Agent'  && person3 != ''" class="fa fa-times-circle cross" (click)="cancle3()"
+                          data-toggle="tooltip" data-placement="bottom" title="Cancel"></i>
+                      </div>
+
+                      <mat-placeholder class="placeholder  ml-3">Add to Compare</mat-placeholder>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected3($event)">
+                        <mat-option *ngFor="let state of filteredStates2 | async" [value]="state.LoginId">
+                          <img class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                            onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                            height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                          <span>{{state.LoginId}}</span>
+                          <!-- <small>Population: {{state.LoginId}}</small> -->
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div class="p-3 flex-fill">
+
+
+
+
+
+                    <mat-form-field *ngIf="subcatValue1 === 'Agent' " class="example-full-width" floatLabel="never">
+
+                      <div [ngClass]="{'chips1':(person4 != ''), 'chips2': !( person4 != '') }">
+                        <img *ngIf="subcatValue1 === 'Agent'  && person4 != ''" class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{p4image}}.png"
+                          style="height: 45px; width: 45px;" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';">&nbsp;&nbsp;
+
+                        <input matInput name="person4" [(ngModel)]="person4" aria-label="State" maxlength="10" [matAutocomplete]="auto" [formControl]="stateCtrl3">
+                        <i style="margin-top:6%" *ngIf="subcatValue1 === 'Agent'  && person4 != ''" class="fa fa-times-circle cross" (click)="cancle4()"
+                          data-toggle="tooltip" data-placement="bottom" title="Cancel"></i>
+                      </div>
+                      <mat-placeholder class="placeholder  ml-3">Add to Compare</mat-placeholder>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected4($event)">
+                        <mat-option *ngFor="let state of filteredStates3 | async" [value]="state.LoginId">
+                          <img class="example-option-img" aria-hidden src="https://www.miraclesoft.com/images/employee-profile-pics/{{state.LoginId}}.png"
+                            onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                            height="25" data-toggle="tooltip" data-placement="bottom" title="{{state.Name}}">
+                          <span>{{state.LoginId}}</span>
+                          <!-- <small>Population: {{state.LoginId}}</small> -->
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <!-- <select class="form-control"  name="person4"  *ngIf = " subcatValue1 === 'Agent'"  [(ngModel)]="person4"  (change)="subSelect223($event)">
+                        <option value="" selected >Select</option>
+                        <option [value]="location.LoginId" *ngFor="let location of agentValueObject ">@{{location.LoginId}} </option>                  
+                      </select> -->
+                  </div>
+
+                  <!-- *ngIf="subcatValue1 === 'Agent' && person1 != '' && person2 != '' || subcatValue1 === 'Agent' && person1 != '' && person2 != '' && person3 != ''  || subcatValue1 === 'Agent' && person1 != '' && person2 != '' && person3 != '' && person4 != ''   "  -->
+
+                </div>
+
+              </div>
+            </div>
+
+
+            <!-- charts -->
+            <div class="row">
+
+              <div class="col-sm-12">
+                <!-- no graphsfound div -->
+                <div *ngIf="noGraphsFound">
+                  <div class="row" style="margin-top:50px;">
+                    <div class="col-sm-12" style="text-align:center;">
+                      <i class="fa fa-line-chart" style=" font-size: 4.5rem;"></i>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 mt-3">
+                      <h2 style="text-align:center;">Oops, no statistics found!</h2>
+                    </div>
+                  </div>
+                </div>
+                <!-- no graphs found div -->
+                <google-chart *ngIf="!noGraphsFound" [data]="departmentGraphChartDataObject"></google-chart>
+              </div>
+
+
+            </div>
+
+            <!-- charts -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- loader -->
+<div *ngIf="!mainLoader" class="main-panel">
+  <div class="content-wrapper">
+    <div style="margin-top: 15%">
+      <div class="row">
+        <div class="col-sm-12" style="text-align:center;">
+          <img src="assets/images/Loader.gif" class="text-center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

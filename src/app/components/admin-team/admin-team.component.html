@@ -1,0 +1,187 @@
+<div *ngIf="loader" class="main-panel">
+  <div class="content-wrapper">
+    <div class="card" style="background-color: #232527;">
+      <div class="card-body" id="header">
+        <div class="row">
+          <div class="col-sm-9">
+            <h4 class="card-title" style="margin-top:-6px;text-transform:none;color:#ffffff;">Team Perfomance</h4>
+          </div>
+          <div class="col-sm-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb  pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/admin/dashboard']" style="color:#00aae7">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Team</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Search panel -->
+       <div class="d-flex justify-content-start">
+      
+          <div class="add-items d-flex mr-auto  " style="flex:0 0 auto;width:93%;">
+            <input #myInput type="text" class="form-control todo-list-input" [(ngModel)]="name" (input)="filterItem(myInput.value)" placeholder="TicketID, Title, Keywords or Status"
+              style="height:44px;">
+            <button class="add btn btn-primary font-weight-bold todo-list-add-btn add-items d-flex mr-auto " id="add-task" style="flex:0 0 auto; flex-direction:row;
+            justify-content: space-between;height: 44px;padding-right: 20px;">Search</button>
+          </div>
+          
+          <div class="add-items d-flex ml-auto " style=" flex-direction:row;flex:0 0 auto;
+          justify-content: space-between;">
+            
+            <label class="flip-label">
+              <input class="flip" type="checkbox" />
+              <div class="card-h" style="font-size:25px;">
+                <div class="front" (click)="showView()" data-toggle="tooltip" data-placement="bottom" title="Click to table view">
+                  <i class="fa fa-table " style="margin-top:10px;"></i>
+                </div>
+                <div class="back" (click)="showView()" data-toggle="tooltip" data-placement="bottom" title="Click to card view">
+                  <i class="fa fa-user " style="margin-top:10px;"></i>
+                </div>
+              </div>
+            </label>
+            <!-- <label class="switch ">
+              <input type="checkbox">
+              <span class="slider">
+                <div class="row">
+                  <div (click)="showView()" class="col-sm-6">
+                    <i class="fa fa-address-book-o  mt-3 ml-2" style="font-size:18px;"></i>
+                  </div>
+                  <div (click)="showView()" class="col-sm-6" style="margin-left: -12%;">
+                    <i class="fa fa-table mt-3" style="font-size:18px;"></i>
+                  </div>
+                </div>
+              </span>
+            </label> -->
+          </div>
+      
+       </div>
+
+
+
+    <!-- Statring of card view -->
+    <div *ngIf="!viewMode" class="cardview1">
+
+
+
+      <div class="row">
+
+        <div *ngFor='let user of allDocList' class="col-md-3 grid-margin stretch-card">
+          <div [routerLink]="['/admin/team-member']"  (click)="fullAgentDetails(user)" class="card row-helight" style="cursor:pointer;">
+            <div class="card-body" style="margin-bottom:-6%;">
+              <div class="d-flex flex-row">
+                <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{user.LoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                  class="img-lg rounded" alt="profile image" style="height:50px;width:50px;"data-toggle="tooltip" data-placement="bottom" title="{{user.Name}}">
+                <div class="ml-2">
+                  <p>
+                    <a  style="text-decoration:none;color:#000000 !important;">@ {{user.LoginId}}</a>
+                  </p>
+                  <div style="display: inline-flex;">
+                    <p class="text-muted">{{user.TeamName}}</p>
+                    &nbsp;&nbsp;
+                    <strong style="display: inline-flex;"> 
+                      <p class="tickets-count">
+                        <i class="fa fa-ticket"></i> {{user.Assigned}} Tickets</p>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- Ending of card view -->
+    <div *ngIf="viewMode">
+      <div class="card">
+        <div class="card-body">
+
+          <table matSort (matSortChange)="sortData($event)" class="table">
+            <tr>
+              <th mat-sort-header="Name" class="text-primary">Name</th>
+              <th mat-sort-header="RoleName" class="text-primary">Role</th>
+              <th mat-sort-header="ServiceTime" class="text-primary">Service Time</th>
+
+              <th mat-sort-header="Assigned" class="text-primary">Assigned</th>
+              <th mat-sort-header="Solved" class="text-primary">Solved</th>
+              <th mat-sort-header="Esacalated" class="text-primary">Esacalated</th>
+            </tr>
+
+            <tr *ngFor="let dessert of sortedData" class="row-helight" style="cursor: pointer;">
+              <!-- 
+                  <td>
+
+                    {{dessert.Name}}</td> -->
+
+              <td >
+                <a class="ttletxt">
+                  <div class="d-flex align-items-center ">
+                    <div class="row-helight" style="cursor: pointer;">
+                      <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{dessert.LoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                        alt="profile image" data-toggle="tooltip" data-placement="bottom" title="{{dessert.Name}}">
+                    </div>
+                    <div class="ml-3 " style="text-align: left;width: 160px;line-height: 1.5rem;">
+                      <p [routerLink]="['/admin/team-member']" (click)="fullAgentDetails(dessert)" style="cursor: pointer;" class="mt-3 row-helight"> {{dessert.Name}}</p>
+                    </div>
+                  </div>
+                </a>
+              </td>
+
+              <td>{{dessert.RoleName}}</td>
+              <td class="text-success">{{dessert.ServiceTime}}</td>
+              <td class="text-info">{{dessert.Assigned}}</td>
+              <td class="text-success">{{dessert.Solved}}</td>
+              <td class="text-danger">{{dessert.Esacalated}}</td>
+              <!-- <td>{{dessert.protein}}</td> -->
+            </tr>
+          </table>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- no tickets found div -->
+    <div *ngIf="noDataDiv === true">
+      <div class="row" style="margin-top:50px;">
+        <div class="col-sm-12" style="text-align:center;">
+          <i class="fa fa-users icon-lg" style=" font-size: 4.5rem;"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 mt-3">
+          <h2 style="text-align:center;">Sorry! no members found</h2>
+        </div>
+      </div>
+    </div>
+    <!-- no tickets found div -->
+
+
+  </div>
+</div>
+
+
+
+<div *ngIf="!loader" class="main-panel">
+  <div class="content-wrapper">
+    <div style="margin-top: 15%">
+      <div class="row">
+        <div class="col-sm-12" style="text-align:center;">
+          <img src="assets/images/Loader.gif" class="text-center">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,380 @@
+<div class="container-scroller">
+  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="background-color:#232527;">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" style="background-color:#232527;">
+      <a class="navbar-brand brand-logo" [routerLink]="['/']">
+        <img src="assets/images/miracle-logo-White-01.svg" alt="logo" style="width:auto;height:55px;margin-bottom: 4px;" />
+      </a>
+      <a class="navbar-brand brand-logo-mini"  [routerLink]="['/']">
+        <img src="assets/images/miracle-logo-White-01.svg" style="width:auto;height:40px;" alt="logo" />
+      </a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+      <button class="navbar-toggler align-self-center" (click)="hideFooter()" type="button" data-toggle="minimize">
+        <span class="mdi mdi-menu text-white"></span>
+      </button>
+   
+      <ul class="navbar-nav navbar-nav-right">
+
+        <li>
+          <div data-toggle="tooltip" data-placement="bottom" title="Raise a Ticket">
+            <a>
+              <i class="fa fa-plus-square" style="color:#FFFFFF;font-size:18px;" data-toggle="modal" data-target="#exampleModal-41" id="plus"></i>
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown show" style="color:#FFFFFF;" data-toggle="tooltip" data-placement="bottom" title="Notifications">
+          <a   class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+            <i  class="mdi mdi-bell"></i>
+            <span *ngIf="badgeCount > 0 && badge"  class="count badge-primary">{{badgeCount}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+            <div *ngIf="allNotificationsLength > 0">
+              <div *ngFor="let data of allNotifications; let i=index" style="cursor: pointer;">
+                <a *ngIf="i<3" class="dropdown-item preview-item row-helight">
+                  <div  (click)="openNotification(data)" class="preview-thumbnail">
+                    <div class="circlecs">
+                      <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{data.createdBy}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';" 
+                      data-toggle="tooltip" data-placement="bottom" title="{{data.createdBy}}">
+                    </div>
+                  </div>
+                  <div class="preview-item-content mt-1">
+                    <div class="noti-text" (click)="openNotification(data)" [innerHTML]="data.notificationDescription">
+                      <!-- <p class="text ellipsis" style="  word-break:break-all;max-width: 280px;white-space: normal;line-height:1.1rem">
+                        {{data.notificationDescription}}
+                      </p> -->
+                    </div>
+                  </div>
+                  <p class="text-muted ml-3 mt-1"> {{ convertToLocalDate(data.createdDate)  | amTimeAgo}}</p>
+                </a>
+                <!-- <div class="dropdown-divider"></div> -->
+              </div>
+              <a [routerLink]="['/admin/notifications']">
+                <h6 class="p-2 mb-0 text-center bg-notifications-footer text-white" (click)="showNotification()" style="background-color:#0d416b;">See all notifications</h6>
+              </a>
+            </div>
+
+            <div *ngIf="allNotificationsLength <= 0">
+              <div style="cursor: pointer;">
+                <div class="mt-3" style="text-align:center;">
+                  <i class="fa fa-bell-slash text-danger" style="font-size:2rem"></i>
+                </div>
+                <!-- data-target="#exampleModal-5" -->
+                <a class="dropdown-item preview-item row-helight" data-toggle="modal">
+
+                  <div class="preview-item-content">
+                    <strong>
+                      <p class="text ellipsis text-danger mt-2">
+                        You don’t have any notifications
+                      </p>
+                    </strong>
+                  </div>
+
+                </a>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </li>
+
+        <li class="nav-item dropdown ml-2 mr-2" style="color:#FFFFFF;">
+          <a>
+            <span class="d-none d-lg-inline" style="margin-right:15px;">Hi,
+              <strong> {{userfullname}}</strong>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logOut()" style="color:#ffffff;cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Signout">
+            <i class="fa fa-sign-out mr-2 mt-1"></i>
+          </a>
+        </li>
+
+
+      </ul>
+
+      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" (click)="toggleMenu();" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu text-white"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!--navigation part starting-->
+
+  <div class="container-fluid page-body-wrapper">
+
+    <!-- partial -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item nav-profile">
+          <div class="nav-link d-flex">
+            <div class="profile-image ml-2">
+              <img src="https://www.miraclesoft.com/images/employee-profile-pics/{{userLoginId}}.png" onError="this.src='https://www.miraclesoft.com/images/employee-profile-pics/NoImage_male.png';"
+                class="profile" alt="image" data-toggle="tooltip" data-placement="bottom" title="{{userfullname}}"/>
+
+            </div>
+            <div class="profile-name">
+              <p class="name prfletxt">
+                <b>{{userfullname}}</b>
+              </p>
+              <p class="designation" style="color:#232527">
+                {{subStringData(designationShortName)}} | {{subStringData(departmentShortName)}}
+              </p>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/dashboard']" routerLinkActive="nav-item active" [routerLinkActiveOptions]="{exact: true}">
+            <a [routerLink]="['/admin/notifications']"></a>
+            <i class="fa fa-bar-chart-o menu-icon iconcolr"></i>
+            <span class="menu-title sidetxt" style="margin-left:-2%;">Dashboard</span>
+          </a>
+        </li>
+
+        <li *ngIf="showAssignedPanel" class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/team']" routerLinkActive="nav-item active" [routerLinkActiveOptions]="{exact: true}">
+            <a [routerLink]="['/admin/team-member']"></a>
+            <i class="fa fa-group menu-icon iconcolr"></i>
+            <span class="menu-title sidetxt">Team</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/assign']" routerLinkActive="nav-item active" [routerLinkActiveOptions]="{exact: true}">
+            <a [routerLink]="['/admin/ticket']"></a>
+            <i class="fa fa-ticket menu-icon iconcolr"></i>
+            <span class="menu-title sidetxt">Tickets</span>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" [routerLink]="['/admin/my-tickets']" routerLinkActive="nav-item active" [routerLinkActiveOptions]="{exact: true}">
+            <a [routerLink]="['/admin/my-ticket']"></a>
+            <i class="fa fa-list-alt menu-icon iconcolr"></i>
+            <span class="menu-title sidetxt">My Tickets</span>
+          </a>
+        </li>
+        <li *ngIf="showAssignedPanel" class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/user-management']" routerLinkActive="nav-item active">
+            <i class="fa fa-user menu-icon iconcolr"></i>
+            <span class="menu-title sidetxt">User Management</span>
+          </a>
+        </li>
+
+      </ul>
+      <footer *ngIf="mainpanelFooter" class="footer pull-down" style="font-size:10px;background-color:#ffffff;border:none;position:absolute;bottom:50px;color:#232527">
+        <div class="container-fluid clearfix">
+          <span class="text-muted d-block text-center text-sm-left d-sm-inline-block" style="text-decoration:none;">
+            <font color="#232527">© {{fullYear}}&nbsp;</font>
+            <a href="https://www.miraclesoft.com/" target="_blank">Miracle Software Systems, Inc. </a>
+          </span>
+        </div>
+      </footer>
+    </nav>
+  </div>
+
+
+  <!--Nav part ending-->
+
+  <!--clsoing of black headder bar -->
+</div>
+
+
+
+
+<div class="modal fade"  id="exampleModal-41" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" style="width:60%;">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <h4 class="card-title" style="text-transform:none;">Raise a Ticket</h4>
+        <form #frmdata="ngForm" action="#" novalidate="">
+
+          <div class="row" style="margin-top:2rem">
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">
+                  <strong>Category</strong>
+                </label>
+                <div class="col-sm-8">
+                  <select class="form-control" [ngClass]="{'dirty': option2.touched,'dirty1': option2.errors?.minlength, 'dirty2':(option2.touched && option2.errors),'non_dirty':!option2.errors }"
+                    [(ngModel)]="selectedCategory" name="selectName" #option2="ngModel" required (ngModelChange)="selectCategory($event)">
+                    <option value="" disabled selected>Select Category</option>
+                    <option *ngFor="let catNames of categoryNames" [ngValue]="catNames">{{catNames.teamName}}</option>
+
+                  </select>
+                  <div *ngIf=" option2.touched">
+                    <div id="error" *ngIf="option2.errors?.required">
+                      <span> This Field is required! </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">
+                  <strong>Sub-Category</strong>
+                </label>
+                <div class="col-sm-8">
+                  <select class="form-control" [ngClass]="{'dirty': option11.touched,'dirty1': option11.errors?.minlength, 'dirty2':(option11.touched && option11.errors),'non_dirty':!option11.errors }"
+                    [(ngModel)]="selectedSubCategory" #option11="ngModel" required name="selectSubName">
+                    <option value="" disabled selected>Select Category</option>
+                    <option *ngFor="let subCatNames of subCategoryNames">{{subCatNames.subCategoryName}} </option>
+
+                  </select>
+                  <div *ngIf=" option11.touched">
+                    <div id="error" *ngIf="option11.errors?.required">
+                      <span> This Field is required! </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+          </div>
+          <div class=" form-group row mt-3" style="margin-bottom:-21px;">
+
+            <label for="Description" class="col-sm-2 col-form-label">
+              <strong>Issue Title</strong>
+            </label>
+            <div class="col-lg-10" >
+              <input class="form-control" [ngClass]="{'dirty': Title1.touched,'dirty1': Title1.errors?.minlength, 'dirty2':(Title1.touched && Title1.errors),'non_dirty':!Title1.errors }"
+                type="text" name="title" required minlength="20" maxlength="100" [(ngModel)]="title" placeholder="TITLE" #Title1="ngModel"
+                id="username3" value="">
+              <span style="float: right;margin-top: 2px;color: gray;font-size: 10px;">
+                ( {{ 0 + title?.length}} / 100 )
+              </span>
+              <div *ngIf=" Title1.touched">
+                <div id="error1" *ngIf="Title1.errors?.required">
+                  <span> Title is required!</span>
+                </div>
+                <div id="error2" *ngIf=" Title1.errors?.minlength">
+                  <span> Minimum 20 characters required!</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <br>
+          <div class=" form-group row mt-3">
+            <label for="Description" class="col-sm-2 col-form-label">
+              <strong>Description</strong>
+            </label>
+            <div class="col-sm-10" style="margin-bottom: -68px;">
+              <textarea class="form-control" name="Description" [ngClass]="{'dirty': Desc1.touched,'dirty1': Desc1.errors?.minlength, 'dirty2':(Desc1.touched && Desc1.errors),'non_dirty':!Desc1.errors }"
+                [(ngModel)]="description" placeholder="DESCRIPTION" id="username4" type="text" minlength="50" maxlength="500"
+                #Desc1="ngModel" style="border: 1px solid#00AAE7;height:auto;word-break:break-word;" value="" required></textarea>
+              <!-- <label id="maxReached4" style="visibility: hidden; color: red; margin-top: 7px !important;">It should contain more than 100 characters</label> -->
+              <span style="float: right;margin-top: 5px;color: gray;margin-bottom: 20px;font-size: 10px;">
+                ( {{ 0 + description?.length}} / 500 )
+              </span>
+
+              <div *ngIf=" Desc1.touched">
+                <div id="error3" *ngIf=" Desc1.errors?.required">
+                  <span> Description is required!</span>
+                </div>
+                <div id="error4" *ngIf="Desc1.errors?.minlength">
+                  <span> Minimum 50 characters required!</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <!-- <div class="col-sm-4"> <div class="box-input">
+  <input name="file-1[]" id="file-1" class="inputfile inputfile-1"  type="file"   (change)="uploadfile1($event)">
+  <label style=" cursor: pointer" for="file-1">
+  <div style="border-radius:2%;"><span style="background-color:#0d416b;color:#ffffff;padding:10px 9px;">Upload <i class="fa fa-upload text-white"></i>&nbsp;</span></div>
+  </label>
+  </div></div> -->
+            <div class="col-sm-4">
+              <!-- <span><strong>{{fileName}} </strong>
+<i  *ngIf ="fileName.length > 0" class="fa fa-times text-danger mt-2 ml-2 icon-sm" (click)="clearFiles()"></i>
+
+</span> -->
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="row" style="margin-left:-4px;margin-top:-4%;">
+        <div class="col-sm-6">
+          <div class="form-group pull-left">
+            <div class="ml-3">
+              <div class="box-input"  data-toggle="tooltip" data-placement="right" title="Screenshots, Documents and other References">
+                <input name="file-4[]" id="file-4" class="inputfile inputfile-1" type="file" accept=".jpg, .png, .jpeg, pdf,.doc |images/* "  (change)="uploadFile1($event)">
+                <label style=" cursor: pointer" for="file-4">
+                  <span style="background-color:#0d416b;color:#ffffff;padding:10px 9px;border-radius:2%;display:inline-flex;" *ngIf="upload ==='Upload'">{{upload}}
+                    <i class="fa fa-upload text-white ml-1"></i>&nbsp;</span>
+                  <span style="background-color:#0d416b;color:#ffffff;padding:10px 9px;border-radius:2%;display:inline-flex;" *ngIf="upload ==='Re-upload'">{{upload}}
+                    <i class="fa fa-upload text-white ml-1"></i>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <span class="ml-2" style="display:inline-flex  !important;font-size:12px; ">
+            <input disabled name="fileName" *ngIf=" fileName !='' " type="text" [(ngModel)]="fileName" class="form-control" placeholder='File name...'
+              style="background-color: #ffffff;font-style:italic;margin-left: 10%;" />
+
+            <strong class="text-danger font-italic mt-2 ml-1" *ngIf="fileerror1 === true "> File size exceeded (1MB max) </strong>
+            <strong class="text-danger font-italic mt-2 ml-1" *ngIf="fileerror === true "> File format is not supported </strong>
+
+            <!-- <strong class="" *ngIf="fileerror === false "> {{fileName1}} </strong>
+            <strong class="text-danger" *ngIf="fileerror === true "> File format is not supported </strong> -->
+            <!-- <i *ngIf="fileName.length > 0" class="fa fa-times text-danger mt-1 ml-2 icon-sm" (click)="clearFiles()"></i> -->
+            <!-- <button  *ngIf ="fileName.length > 0" type="button" class="btn btn-danger pull-right btn-group ml-1" (click)="clearFiles()" style="padding: 9px;padding-right:9px;"><i class="fa fa-times ml-1"></i></button>  -->
+          </span>
+          <button type="button"  *ngIf="fileName != ''" (click)="clearFiles()" class="btn btn-danger btn-group " style="padding: 9px;height:34px;margin-top: -1px;"><i class="fa fa-times ml-1" data-toggle="tooltip" data-placement="bottom" title="Cancel"></i></button>
+        </div>
+
+        <!-- <div class="col-sm-4"></div> -->
+        <div class="col-sm-6 " style="margin-bottom: 30px;">
+          <button type="button"  [disabled]='frmdata.invalid || block ' class="btn btn-primary pull-right btn-sm" style="margin-right:7%;" (click)="Submit(frmdata)">&nbsp;&nbsp;Submit&nbsp;&nbsp;<i  *ngIf ="block" class="fa fa-spinner fa-spin " style="margin-right: -9px;"></i>
+            <!-- <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> -->
+            <!-- <div class="lds-ring"><div></div><div></div><div></div><div></div></div> -->
+          </button>
+          <button type="button" class="btn btn-light pull-right" (click)="closeTicket(frmdata)" style="margin-right:5px">Close</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+<!-- notifications model -->
+
+
+
+
+<div class="modal fade" id="exampleModal-6" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document" style="margin-top:18%;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div style="text-align:center">
+          <i class="fa fa-check-circle text-success" style="font-size:4rem"></i>
+        </div>
+        <h5 class="text-center text-success mt-3">
+          <strong>Your Ticket has been successfully submitted
+          </strong>
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
