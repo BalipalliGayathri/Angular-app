@@ -12,12 +12,9 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'ng build --prod'
             }
-        }
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
+        
         }
     }
 } 
