@@ -12,6 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install node-sass'
+                sh 'npm install -g @angular/cli'
                 sh 'ng build --prod'
             }
         }
