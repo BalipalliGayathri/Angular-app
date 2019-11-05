@@ -8,7 +8,7 @@ pipeline {
             }
         }
         stage('Build') {
-            withNode(nodejs : 'NodeJS 10.9.0')
+            withNode(nodejs : 'NodeJS_10_9_0')
             steps {
                 sh 'npm install node-sass'
                 sh 'npm install -g @angular/cli'
