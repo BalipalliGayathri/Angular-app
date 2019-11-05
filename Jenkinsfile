@@ -1,7 +1,7 @@
 pipeline {
     agent any  
     tools {
-	      nodejs 'NodeJS 13.0.1' 
+	      node 'nodejs' 
     }
     stages {
         stage('Cloning Git') {
@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm install node-sass'
+                sh 'npm install'
                 sh 'npm install -g @angular/cli'
                 sh 'ng build --prod'
             }
