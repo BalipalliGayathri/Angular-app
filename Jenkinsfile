@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+     
+    tools {
+	      nodejs 'NodeJS 10.9.0' 
+    }
     stages {
         stage('Cloning Git') {
             steps {
@@ -9,11 +12,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                withNode(nodejs : 'NodeJS_10_9_0') {
                 sh 'npm install node-sass'
                 sh 'npm install -g @angular/cli'
                 sh 'ng build --prod'
-                }
             }
         }
     }
