@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'npm install -g rxjs@5.5.0'
                 sh 'npm install -g @angular/cli'
                 sh 'ng build --prod'
             }
